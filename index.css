@@ -1,0 +1,42 @@
+
+
+.column {
+    float: left;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.column-left, .column-right {
+    width: 24%;
+}
+
+.column-middle {
+    width: 50%;
+}
+
+.row {
+    padding-top: 5%;
+}
+
+#map { 
+    height: 500px;
+}
+
+#results-list li {
+    border: 1px solid green;
+}
+
+.radio-group {
+    display: inline-block;
+    text-align: center;
+}
+
+.radio-group label {
+    display: block;
+}
+
+.scroller-review {
+    padding-left: 60%;
+    text-align: center;
+    width: 20%;
+}

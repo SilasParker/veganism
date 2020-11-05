@@ -1,21 +1,120 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <h1 style="background-color: greenyellow;">Veganism</h1>
-        <div id="googleMap" style="width:100%;height:700px;background-color:green;"></div>
-        <script>
-            function myMap() {
-                var mapProp = {
-                    center:new google.maps.LatLng(50.835160,-0.137110),zoom:15,
 
-                };
-                var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-                let home = {lat: 50.835160,lng:-0.137110};
-                var marker = new google.maps.Marker({position:home,animation:google.maps.Animation.BOUNCE});
-                marker.setMap(map);
+<head>
+    <link href="index.css" rel="stylesheet" type="text/css">
+    <title>Veganism</title>
+    <h1>Veganism</h1>
+</head>
 
-            }
-        </script>
-        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=myMap"></script>
-    </body>
+<body>
+    <div id="search">
+        <button id="search-geolocation" type="button">Use Current Location</button>
+        <input id="search-bar" type="text" value="Type here...">
+    </div>
+    <div class="scroller-review">
+        <div class="scroller-restaurant">
+            <h3>Jenny's</h3>
+        </div>
+        <div class="scroller-rating">
+            <p>Overall: 4*</p>
+            <p>Veganism: 2*</p>
+        </div>
+        <div class="scroller-comment">
+            <p><b>Brilliant for a lovely local breakfast</b></p>
+        </div>
+        <div class="scroller-author">
+            <p><i>-- Conker Bones Sparkler Parker</i></p>
+        </div>
+        <div class="scroller-report">
+            <button type="button">Report</button>
+        </div>
+    </div>
+    <div id="tri-column" class="row">
+        <div id="results-list" class="column column-left">
+            <ol>
+                <li>
+                    <div class="result">
+                        <h3>Jenny's</h3>
+                        <p>Restaurant Rating: 4*</p>
+                        <p>Veganism: 2*</p>
+                        <p>Address: Muzzy</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="result">
+                        <h3>Midori</h3>
+                        <p>Restaurant Rating: 5*</p>
+                        <p>Veganism: 1*</p>
+                        <p>Address: YOO</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div id="map" class="column column-middle"></div>
+        <div id="write-review" class="column column-right">
+            <h2>Write Review for Jenny's</h2>
+            <div class="stars">
+                <h4>Restaurant Quality</h4>
+                <div class="radio-group">
+                    <input type="radio" class="review-star" id="one-star">
+                    <label for="one-star">1</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-star" id="two-star">
+                    <label for="two-star">2</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-star" id="three-star">
+                    <label for="three-star">3</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-star" id="four-star">
+                    <label for="four-star">4</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-star" id="five-star">
+                    <label for="five-star">5</label>
+                </div>
+            </div>
+            <h4>Veganism Scale</h4>
+            <div class="veganism">
+                <div class="radio-group">
+                    <input type="radio" class="review-veganism" id="one-star">
+                    <label for="one-star">1</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-veganism" id="two-star">
+                    <label for="two-star">2</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-veganism" id="three-star">
+                    <label for="three-star">3</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-veganism" id="four-star">
+                    <label for="four-star">4</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" class="review-veganism" id="five-star">
+                    <label for="five-star">5</label>
+                </div>
+            </div>
+            <div class="review-name">
+                <input type="text" value="Name goes here...">
+            </div>
+            <div class="review-comment">
+                <textarea cols=30 rows=5 maxlength=100>Comment goes here...</textarea>
+            </div>
+            <div class="review-submit">
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=initMap"
+        defer></script>
+</body>
+
 </html>
