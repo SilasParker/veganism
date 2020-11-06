@@ -39,11 +39,34 @@ class VeganismAPI {
         $rid_valid = $this->checkRID($restaurant_id);
         $stars_valid = checkRating($stars,5);
         $veganism_valid = checkRating($veganism,4);
+        $author_name = urldecode($author_name);
+        $comment = urldecode($comment);
         $comment_valid = false;
+        $author_name_valid = false;
         if(strlen($comment) <= 100) {
             $comment_valid = true;
         } 
-        //WAS HERE!!! 
+        if(strlen($author_name) > 0 && strlen($author_name) <= 38) {
+            $author_name_valid = true;
+        }
+        $prep = $this->conn->prepare("INSERT INTO reviews (author,restaurant-id,comment,star-rating,veganism-rating) VALUES (?,?,?,?,?)");
+        $prep->bind_param("sssss",$author,$rid,$new_comment,$star_rating,$veganism_rating);
+        if($author_name_valid && $comment_valid && $rid_valid && $stars_valid && $veganism_valid) {
+            $author = $author_name;
+            $rid = $restaurant_id;
+            $new_comment = $comment;
+            $star_rating = $stars;
+            $veganism_rating = $veganism;
+            $prep->execute();
+            $prep->close();
+            http_response_code(201);
+            $_POST = array();
+            $id = $this->conn->insert_id;
+            echo json_encode(array("id"=>$id),JSON_PRETTY_PRINT);
+        } else {
+            http_response_code(400);
+        }
+        
     }
 
 
