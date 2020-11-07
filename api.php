@@ -37,8 +37,8 @@ class VeganismAPI {
 
     private function handlePOST($author_name,$restaurant_id,$comment,$stars,$veganism) {
         $rid_valid = $this->checkRID($restaurant_id);
-        $stars_valid = checkRating($stars,5);
-        $veganism_valid = checkRating($veganism,4);
+        $stars_valid = $this->checkRating($stars,5);
+        $veganism_valid = $this->checkRating($veganism,4);
         $author_name = urldecode($author_name);
         $comment = urldecode($comment);
         $comment_valid = false;
@@ -49,14 +49,16 @@ class VeganismAPI {
         if(strlen($author_name) > 0 && strlen($author_name) <= 38) {
             $author_name_valid = true;
         }
-        $prep = $this->conn->prepare("INSERT INTO reviews (author,restaurant-id,comment,star-rating,veganism-rating) VALUES (?,?,?,?,?)");
-        $prep->bind_param("sssss",$author,$rid,$new_comment,$star_rating,$veganism_rating);
+        $prep = $this->conn->prepare("INSERT INTO `reviews` (`author`,`restaurant-id`,`comment`,`star-rating`,`veganism-rating`) VALUES (?,?,?,?,?)");
+        echo $prep->error;
+        $prep->bind_param("sssii",$author,$rid,$new_comment,$star_rating,$veganism_rating);
         if($author_name_valid && $comment_valid && $rid_valid && $stars_valid && $veganism_valid) {
             $author = $author_name;
             $rid = $restaurant_id;
             $new_comment = $comment;
             $star_rating = $stars;
             $veganism_rating = $veganism;
+            $reported = false;
             $prep->execute();
             $prep->close();
             http_response_code(201);
@@ -74,6 +76,20 @@ class VeganismAPI {
     private function handleGET($restaurant_id) {
         $rid_valid = $this->checkRID($restaurant_id);
         if($rid_valid) {
+            $sql = "SELECT `author`,`comment`,`star-rating`,`veganism-rating` WHERE restaurant-id='".$restaurant_id."' AND reported=false";
+            $result = $this->conn->query($sql);
+            if(mysqli_num_rows($result) == 0) {
+                http_response_code(204);
+            } else {
+                $comments = array();
+                while($row = mysqli_fetch_assoc($result)) {
+                    $comments[] = $row;
+                }
+            }
+            http_response_code(200);
+            echo json_encode(array("restaurant-id"=>$restaurant_id,"comment-details"=>$comments),JSON_PRETTY_PRINT);
+        } else {
+            http_response_code(400);
         }
     }
 
