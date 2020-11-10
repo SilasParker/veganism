@@ -1,6 +1,5 @@
 
 function initMap() {
-    console.log("yo");
     var mapProp = {
         center: new google.maps.LatLng(50.835160, -0.137110), zoom: 15,
     };
@@ -13,6 +12,46 @@ function initMap() {
     });
     infoWindow.open(map,marker);
 
+}
+
+async function submitReview() {
+    let stars = document.getElementsByClassName("review-star");
+    let veganism = document.getElementsByClassName("review-veganism");
+    stars = checkRating(stars);
+    veganism = checkRating(veganism);
+    if(stars && veganism) {
+        console.log("Stars+veganism are fine");
+        let name = document.getElementById("author-input").value;
+        if(name && name !== "Name goes here...") {
+            console.log("name is fine");
+            let comment = document.getElementById("comment-input").value;
+            if(comment === "Comment goes here...") {
+                comment = "";
+            }
+            let restaurantID = "testlmao";
+            let data = {
+                restaurantID: restaurantID,
+                stars: stars,
+                veganism: veganism,
+                name: name,
+                comment: comment
+            }
+            const confirm = await fetch("api.php", {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            console.log(confirm.json());
+        }
+    }
+}
+
+function checkRating(radioArray) {
+    for(let i = 0;i<radioArray.length;i++) {
+        if(radioArray[i].checked) {
+            return i+1;
+        }
+    }
+    return null;
 }
 
 function allClosestRestaurants() {

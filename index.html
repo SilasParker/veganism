@@ -57,57 +57,57 @@
             <div class="stars">
                 <h4>Restaurant Quality</h4>
                 <div class="radio-group">
-                    <input type="radio" class="review-star" id="one-star">
+                    <input type="radio" class="review-star" id="one-star" name="radStar">
                     <label for="one-star">1</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-star" id="two-star">
+                    <input type="radio" class="review-star" id="two-star" name="radStar">
                     <label for="two-star">2</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-star" id="three-star">
+                    <input type="radio" class="review-star" id="three-star" name="radStar">
                     <label for="three-star">3</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-star" id="four-star">
+                    <input type="radio" class="review-star" id="four-star" name="radStar">
                     <label for="four-star">4</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-star" id="five-star">
+                    <input type="radio" class="review-star" id="five-star" name="radStar">
                     <label for="five-star">5</label>
                 </div>
             </div>
             <h4>Veganism Scale</h4>
             <div class="veganism">
                 <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="one-star">
+                    <input type="radio" class="review-veganism" id="one-star" name="radVeganism">
                     <label for="one-star">1</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="two-star">
+                    <input type="radio" class="review-veganism" id="two-star" name="radVeganism">
                     <label for="two-star">2</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="three-star">
+                    <input type="radio" class="review-veganism" id="three-star" name="radVeganism">
                     <label for="three-star">3</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="four-star">
+                    <input type="radio" class="review-veganism" id="four-star" name="radVeganism">
                     <label for="four-star">4</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="five-star">
+                    <input type="radio" class="review-veganism" id="five-star" name="radVeganism">
                     <label for="five-star">5</label>
                 </div>
             </div>
             <div class="review-name">
-                <input type="text" value="Name goes here...">
+                <input type="text" id="author-input" value="Name goes here...">
             </div>
             <div class="review-comment">
-                <textarea cols=30 rows=5 maxlength=100>Comment goes here...</textarea>
+                <textarea cols=30 rows=5 maxlength=100 id="comment-input">Comment goes here...</textarea>
             </div>
             <div class="review-submit">
-                <button type="submit">Submit</button>
+                <button type="submit" onclick=submitReview()>Submit</button>
             </div>
         </div>
     </div>

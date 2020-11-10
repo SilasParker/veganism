@@ -76,7 +76,7 @@ class VeganismAPI {
     private function handleGET($restaurant_id) {
         $rid_valid = $this->checkRID($restaurant_id);
         if($rid_valid) {
-            $sql = "SELECT `author`,`comment`,`star-rating`,`veganism-rating` WHERE restaurant-id='".$restaurant_id."' AND reported=false";
+            $sql = "SELECT `author`,`comment`,`star-rating`,`veganism-rating` FROM reviews WHERE `restaurant-id`='".$restaurant_id."' AND reported=false";
             $result = $this->conn->query($sql);
             if(mysqli_num_rows($result) == 0) {
                 http_response_code(204);
