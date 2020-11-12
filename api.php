@@ -114,4 +114,5 @@ class VeganismAPI {
     }
 }
 
+$test = new VeganismAPI();
 ?>

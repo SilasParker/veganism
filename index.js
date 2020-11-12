@@ -28,21 +28,41 @@ async function submitReview() {
             if(comment === "Comment goes here...") {
                 comment = "";
             }
-            let restaurantID = "testlmao";
-            let data = {
-                restaurantID: restaurantID,
-                stars: stars,
-                veganism: veganism,
-                name: name,
-                comment: comment
-            }
-            const confirm = await fetch("api.php", {
+            let restaurantID = "test";
+            let bodyData = "restaurantID="+restaurantID+"&stars="+stars+"&veganism="+veganism+"&name="+name+"&comment="+comment;
+            await fetch("/api.php", {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: bodyData,
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                }
+            })
+            .then(function(data) {
+                console.log("Request succeeded with response",data);
+            })
+            .catch(function(error) {
+                console.log("Your request failed: "+error);
             });
-            console.log(confirm.json());
         }
     }
+}
+
+function getGeolocation() {
+    if(handleGeolocationPermission()) {
+        
+    }
+}
+
+function handleGeolocationPermission() {
+    navigator.permissions.query({name:'geolocation'}).then(function(result) {
+        if(result.state == 'granted') {
+            return true;
+        } else if(result.state == 'prompt') {
+            setTimeout(() => {return handleGeolocationPermission();},1000);
+        } else if(result.state == 'denied') {
+            return false;
+        }
+    })
 }
 
 function checkRating(radioArray) {
