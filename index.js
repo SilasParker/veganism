@@ -8,9 +8,9 @@ function initMap() {
     var marker = new google.maps.Marker({ position: home, animation: google.maps.Animation.BOUNCE });
     marker.setMap(map);
     var infoWindow = new google.maps.InfoWindow({
-        content:"Whaddup"
+        content: "Whaddup"
     });
-    infoWindow.open(map,marker);
+    infoWindow.open(map, marker);
 
 }
 
@@ -19,17 +19,17 @@ async function submitReview() {
     let veganism = document.getElementsByClassName("review-veganism");
     stars = checkRating(stars);
     veganism = checkRating(veganism);
-    if(stars && veganism) {
+    if (stars && veganism) {
         console.log("Stars+veganism are fine");
         let name = document.getElementById("author-input").value;
-        if(name && name !== "Name goes here...") {
+        if (name && name !== "Name goes here...") {
             console.log("name is fine");
             let comment = document.getElementById("comment-input").value;
-            if(comment === "Comment goes here...") {
+            if (comment === "Comment goes here...") {
                 comment = "";
             }
             let restaurantID = "test";
-            let bodyData = "restaurantID="+restaurantID+"&stars="+stars+"&veganism="+veganism+"&name="+name+"&comment="+comment;
+            let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
             await fetch("/api.php", {
                 method: 'POST',
                 body: bodyData,
@@ -37,38 +37,58 @@ async function submitReview() {
                     "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
             })
-            .then(function(data) {
-                console.log("Request succeeded with response",data);
-            })
-            .catch(function(error) {
-                console.log("Your request failed: "+error);
-            });
+                .then(function (data) {
+                    console.log("Request succeeded with response", data);
+                })
+                .catch(function (error) {
+                    console.log("Your request failed: " + error);
+                });
         }
     }
 }
 
 function getGeolocation() {
-    if(handleGeolocationPermission()) {
-        
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            document.getElementById("search-geolocation-error").hidden = true;
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log(latitude, longitude);
+        },() => {
+            locationError(true)
+        });
+    } else {
+        locationError(false);
     }
 }
 
+function locationError(browserGeoLocation) {
+    if(browserGeoLocation) {
+        document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Access was denied, change settings";
+    } else {
+        document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Unsupported by browser, try Chrome";
+    }
+    document.getElementById("search-geolocation-error").hidden = false;
+}
+
+
 function handleGeolocationPermission() {
-    navigator.permissions.query({name:'geolocation'}).then(function(result) {
-        if(result.state == 'granted') {
+    navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+        console.log(result.state);
+        if (result.state == 'granted') {
             return true;
-        } else if(result.state == 'prompt') {
-            setTimeout(() => {return handleGeolocationPermission();},1000);
-        } else if(result.state == 'denied') {
+        } else if (result.state == 'prompt') {
+            return setTimeout(() => { return handleGeolocationPermission(); }, 1000);
+        } else if (result.state == 'denied') {
             return false;
         }
     })
 }
 
 function checkRating(radioArray) {
-    for(let i = 0;i<radioArray.length;i++) {
-        if(radioArray[i].checked) {
-            return i+1;
+    for (let i = 0; i < radioArray.length; i++) {
+        if (radioArray[i].checked) {
+            return i + 1;
         }
     }
     return null;

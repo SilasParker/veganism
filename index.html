@@ -9,8 +9,10 @@
 
 <body>
     <div id="search">
-        <button id="search-geolocation" type="button">Use Current Location</button>
+        <button id="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
         <input id="search-bar" type="text" value="Type here...">
+        <button type="button" id="search-submit">Search</button>
+        <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
     <div class="scroller-review">
         <div class="scroller-restaurant">
