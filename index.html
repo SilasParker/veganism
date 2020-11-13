@@ -11,7 +11,7 @@
     <div id="search">
         <button id="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
         <input id="search-bar" type="text" value="Type here...">
-        <button type="button" id="search-submit">Search</button>
+        <button type="button" id="search-submit" onclick=searchLocation()>Search</button>
         <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
     <div class="scroller-review">
@@ -115,7 +115,7 @@
     </div>
 
     <script src="index.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=initMap&libraries=places"
         defer></script>
 </body>
 

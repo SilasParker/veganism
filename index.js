@@ -1,9 +1,11 @@
 
+var map;
+
 function initMap() {
     var mapProp = {
         center: new google.maps.LatLng(50.835160, -0.137110), zoom: 15,
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapProp);
+    map = new google.maps.Map(document.getElementById("map"), mapProp);
     let home = { lat: 50.835160, lng: -0.137110 };
     var marker = new google.maps.Marker({ position: home, animation: google.maps.Animation.BOUNCE });
     marker.setMap(map);
@@ -54,7 +56,7 @@ function getGeolocation() {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             console.log(latitude, longitude);
-        },() => {
+        }, () => {
             locationError(true)
         });
     } else {
@@ -63,7 +65,7 @@ function getGeolocation() {
 }
 
 function locationError(browserGeoLocation) {
-    if(browserGeoLocation) {
+    if (browserGeoLocation) {
         document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Access was denied, change settings";
     } else {
         document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Unsupported by browser, try Chrome";
@@ -94,10 +96,49 @@ function checkRating(radioArray) {
     return null;
 }
 
-function allClosestRestaurants() {
-    let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.83516,-0.13711&radius=1500&type=restaurant&rankby=distance&key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA"
+function findAllClosestRestaurants(location,service) {
+    const request = {
+        location: location,
+        type: ['restaurant'],
+        rankBy: google.maps.places.RankBy.DISTANCE,
+        openNow: true
+    };
+    service.nearbySearch(request, generateNearbyRestaurants);
+}
+
+function generateNearbyRestaurants(results, status) {
+    if(status === google.maps.places.PlacesServiceStatus.OK) {
+        for(let i = 0;i < 5;i++) {
+            console.log(results[i]);
+        }
+    }
+}
+
+function searchLocation() {
+    let query = document.getElementById("search-bar").value;
+    const request = {
+        query: query,
+        fields: ["geometry"]
+    };
+    console.log(map);
+    let service = new google.maps.places.PlacesService(map);
+    service.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            if (results[0]) {
+                map.setCenter(results[0].geometry.location);
+                console.log("Search Results: Lat:", results[0].geometry.location.lat, "Long:", results[0].geometry.location.lng);
+                findAllClosestRestaurants(results[0].geometry.location,service);
+            } else {
+                console.log("No results to show");
+            }
+        } else {
+            console.log("No connection to Maps API");
+        }
+    })
 }
 
 /*
 defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=myMap"
 */
+
+//TODO: Figure out a good structure for the results and how they could be scrolled through
