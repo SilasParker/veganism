@@ -56,6 +56,13 @@ function getGeolocation() {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             console.log(latitude, longitude);
+            let service = new google.maps.places.PlacesService(map);
+            let latLng = {
+                lat: latitude,
+                lng: longitude
+            };
+            findAllClosestRestaurants(latLng,service);
+            map.setCenter(latLng);
         }, () => {
             locationError(true)
         });
@@ -110,6 +117,8 @@ function generateNearbyRestaurants(results, status) {
     if(status === google.maps.places.PlacesServiceStatus.OK) {
         for(let i = 0;i < 5;i++) {
             console.log(results[i]);
+            let marker = new google.maps.Marker({ position: results[i].geometry.location });
+            marker.setMap(map);
         }
     }
 }
