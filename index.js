@@ -61,7 +61,7 @@ function getGeolocation() {
                 lat: latitude,
                 lng: longitude
             };
-            findAllClosestRestaurants(latLng,service);
+            findAllClosestRestaurants(latLng, service);
             map.setCenter(latLng);
         }, () => {
             locationError(true)
@@ -103,7 +103,7 @@ function checkRating(radioArray) {
     return null;
 }
 
-function findAllClosestRestaurants(location,service) {
+function findAllClosestRestaurants(location, service) {
     const request = {
         location: location,
         type: ['restaurant'],
@@ -114,11 +114,12 @@ function findAllClosestRestaurants(location,service) {
 }
 
 function generateNearbyRestaurants(results, status) {
-    if(status === google.maps.places.PlacesServiceStatus.OK) {
-        for(let i = 0;i < 5;i++) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let i = 0; i < results.length; i++) {
             console.log(results[i]);
             let marker = new google.maps.Marker({ position: results[i].geometry.location });
             marker.setMap(map);
+
         }
     }
 }
@@ -136,7 +137,7 @@ function searchLocation() {
             if (results[0]) {
                 map.setCenter(results[0].geometry.location);
                 console.log("Search Results: Lat:", results[0].geometry.location.lat, "Long:", results[0].geometry.location.lng);
-                findAllClosestRestaurants(results[0].geometry.location,service);
+                findAllClosestRestaurants(results[0].geometry.location, service);
             } else {
                 console.log("No results to show");
             }
