@@ -14,12 +14,10 @@ function initMap() {
     });
     infoWindow.open(map, marker);
     
-    //testFunction();
 
 }
 
-function testFunction(element) {
-    console.log("hello");
+function displayResults(element) {
     let list = document.getElementById("results-ordered-list");
     let listElement = document.createElement("li");
     listElement.appendChild(element);
@@ -33,17 +31,15 @@ async function submitReview() {
     stars = checkRating(stars);
     veganism = checkRating(veganism);
     if (stars && veganism) {
-        console.log("Stars+veganism are fine");
         let name = document.getElementById("author-input").value;
         if (name && name !== "Name goes here...") {
-            console.log("name is fine");
             let comment = document.getElementById("comment-input").value;
             if (comment === "Comment goes here...") {
                 comment = "";
             }
-            let restaurantID = "test";
+            let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
             let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
-            await fetch("/api.php", {
+            await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
                 method: 'POST',
                 body: bodyData,
                 headers: {
@@ -58,6 +54,13 @@ async function submitReview() {
                 });
         }
     }
+    this.resetForm();
+}
+
+
+
+function resetForm() {
+    
 }
 
 function getGeolocation() {
@@ -66,7 +69,6 @@ function getGeolocation() {
             document.getElementById("search-geolocation-error").hidden = true;
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            console.log(latitude, longitude);
             let service = new google.maps.places.PlacesService(map);
             let latLng = {
                 lat: latitude,
@@ -94,7 +96,6 @@ function locationError(browserGeoLocation) {
 
 function handleGeolocationPermission() {
     navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
-        console.log(result.state);
         if (result.state == 'granted') {
             return true;
         } else if (result.state == 'prompt') {
@@ -127,14 +128,11 @@ function findAllClosestRestaurants(location, service) {
 async function generateNearbyRestaurants(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (let i = 0; i < results.length; i++) {
-            console.log(results[i]);
             let marker = new google.maps.Marker({ position: results[i].geometry.location });
             marker.setMap(map);
-            
             let test = new Result(results[i]);
-            console.log("yo");
             let newElement = await test.setResults();
-            testFunction(newElement);
+            displayResults(newElement);
         }
     }
 }
@@ -145,13 +143,11 @@ function searchLocation() {
         query: query,
         fields: ["geometry"]
     };
-    console.log(map);
     let service = new google.maps.places.PlacesService(map);
     service.findPlaceFromQuery(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             if (results[0]) {
                 map.setCenter(results[0].geometry.location);
-                console.log("Search Results: Lat:", results[0].geometry.location.lat, "Long:", results[0].geometry.location.lng);
                 findAllClosestRestaurants(results[0].geometry.location, service);
             } else {
                 console.log("No results to show");

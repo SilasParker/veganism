@@ -78,14 +78,13 @@ class Result {
             restaurantPhoto.src = this.photo[0].getUrl();
             restaurantPhoto.width = "200";
             restaurantPhoto.height = "150";
-            console.log("Set Image SRC");
         } else {
-            console.log("No image");
         }
-        let reviewButton = document.createElement("btn");
+        let reviewButton = document.createElement("button");
         reviewButton.type = "button";
         reviewButton.innerHTML = "Review";
-        
+        let self = this;
+        reviewButton.onclick = function() {self.updateForm();}
         divWrapper.appendChild(restaurantName);
         divWrapper.appendChild(restaurantPhoto);
         ratingsDiv.appendChild(veganismRating);
@@ -94,10 +93,14 @@ class Result {
         divWrapper.appendChild(ratingsDiv);
         divWrapper.appendChild(restaurantAddress);
         divWrapper.appendChild(reviewButton);
-        
         return divWrapper;
     }
 
+    updateForm() {
+        let formDiv = document.getElementById("write-review");
+        formDiv.getElementsByTagName("h2")[0].innerHTML = "Write Review for "+this.name;
+        formDiv.getElementsByTagName("h2")[0].id = this.placeID;
+    }
 }
 /*
 Next TODO: Make the Review buttons functional so that it brings it up on the right and then so that the review sends a review to the correct restaurant

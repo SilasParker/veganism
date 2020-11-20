@@ -11,8 +11,12 @@ body {
 
 .column-left, .column-right {
     width: 24%;
-    overflow: scroll;
     height: 500px;
+}
+
+.column-left {
+    overflow: scroll;
+    
 }
 
 .column-middle {
