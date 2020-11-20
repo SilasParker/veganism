@@ -87,7 +87,7 @@ class VeganismAPI {
                 }
             }
             http_response_code(200);
-            echo json_encode(array("restaurant-id"=>$restaurant_id,"comment-details"=>$comments),JSON_PRETTY_PRINT);
+            echo json_encode(array("restaurant-id"=>$restaurant_id,"ratings"=>$comments),JSON_PRETTY_PRINT);
         } else {
             http_response_code(400);
         }

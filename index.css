@@ -1,4 +1,7 @@
-
+body {
+    background-color: #111122;
+    color: white;
+}
 
 .column {
     float: left;
@@ -8,6 +11,8 @@
 
 .column-left, .column-right {
     width: 24%;
+    overflow: scroll;
+    height: 500px;
 }
 
 .column-middle {
@@ -39,4 +44,8 @@
     padding-left: 60%;
     text-align: center;
     width: 20%;
+}
+
+.search-geolocation-error {
+    hidden: true;
 }

@@ -1,17 +1,30 @@
 
+var map;
+
 function initMap() {
     var mapProp = {
         center: new google.maps.LatLng(50.835160, -0.137110), zoom: 15,
     };
-    var map = new google.maps.Map(document.getElementById("map"), mapProp);
+    map = new google.maps.Map(document.getElementById("map"), mapProp);
     let home = { lat: 50.835160, lng: -0.137110 };
     var marker = new google.maps.Marker({ position: home, animation: google.maps.Animation.BOUNCE });
     marker.setMap(map);
     var infoWindow = new google.maps.InfoWindow({
-        content:"Whaddup"
+        content: "Whaddup"
     });
-    infoWindow.open(map,marker);
+    infoWindow.open(map, marker);
+    
+    //testFunction();
 
+}
+
+function testFunction(element) {
+    console.log("hello");
+    let list = document.getElementById("results-ordered-list");
+    let listElement = document.createElement("li");
+    listElement.appendChild(element);
+    list.appendChild(listElement);
+    
 }
 
 async function submitReview() {
@@ -19,17 +32,17 @@ async function submitReview() {
     let veganism = document.getElementsByClassName("review-veganism");
     stars = checkRating(stars);
     veganism = checkRating(veganism);
-    if(stars && veganism) {
+    if (stars && veganism) {
         console.log("Stars+veganism are fine");
         let name = document.getElementById("author-input").value;
-        if(name && name !== "Name goes here...") {
+        if (name && name !== "Name goes here...") {
             console.log("name is fine");
             let comment = document.getElementById("comment-input").value;
-            if(comment === "Comment goes here...") {
+            if (comment === "Comment goes here...") {
                 comment = "";
             }
             let restaurantID = "test";
-            let bodyData = "restaurantID="+restaurantID+"&stars="+stars+"&veganism="+veganism+"&name="+name+"&comment="+comment;
+            let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
             await fetch("/api.php", {
                 method: 'POST',
                 body: bodyData,
@@ -37,47 +50,120 @@ async function submitReview() {
                     "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
             })
-            .then(function(data) {
-                console.log("Request succeeded with response",data);
-            })
-            .catch(function(error) {
-                console.log("Your request failed: "+error);
-            });
+                .then(function (data) {
+                    console.log("Request succeeded with response", data);
+                })
+                .catch(function (error) {
+                    console.log("Your request failed: " + error);
+                });
         }
     }
 }
 
 function getGeolocation() {
-    if(handleGeolocationPermission()) {
-        
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            document.getElementById("search-geolocation-error").hidden = true;
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log(latitude, longitude);
+            let service = new google.maps.places.PlacesService(map);
+            let latLng = {
+                lat: latitude,
+                lng: longitude
+            };
+            findAllClosestRestaurants(latLng, service);
+            map.setCenter(latLng);
+        }, () => {
+            locationError(true)
+        });
+    } else {
+        locationError(false);
     }
 }
 
+function locationError(browserGeoLocation) {
+    if (browserGeoLocation) {
+        document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Access was denied, change settings";
+    } else {
+        document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Unsupported by browser, try Chrome";
+    }
+    document.getElementById("search-geolocation-error").hidden = false;
+}
+
+
 function handleGeolocationPermission() {
-    navigator.permissions.query({name:'geolocation'}).then(function(result) {
-        if(result.state == 'granted') {
+    navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+        console.log(result.state);
+        if (result.state == 'granted') {
             return true;
-        } else if(result.state == 'prompt') {
-            setTimeout(() => {return handleGeolocationPermission();},1000);
-        } else if(result.state == 'denied') {
+        } else if (result.state == 'prompt') {
+            return setTimeout(() => { return handleGeolocationPermission(); }, 1000);
+        } else if (result.state == 'denied') {
             return false;
         }
     })
 }
 
 function checkRating(radioArray) {
-    for(let i = 0;i<radioArray.length;i++) {
-        if(radioArray[i].checked) {
-            return i+1;
+    for (let i = 0; i < radioArray.length; i++) {
+        if (radioArray[i].checked) {
+            return i + 1;
         }
     }
     return null;
 }
 
-function allClosestRestaurants() {
-    let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.83516,-0.13711&radius=1500&type=restaurant&rankby=distance&key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA"
+function findAllClosestRestaurants(location, service) {
+    const request = {
+        location: location,
+        type: ['restaurant'],
+        rankBy: google.maps.places.RankBy.DISTANCE,
+        openNow: true
+    };
+    service.nearbySearch(request, generateNearbyRestaurants);
+}
+
+async function generateNearbyRestaurants(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let i = 0; i < results.length; i++) {
+            console.log(results[i]);
+            let marker = new google.maps.Marker({ position: results[i].geometry.location });
+            marker.setMap(map);
+            
+            let test = new Result(results[i]);
+            console.log("yo");
+            let newElement = await test.setResults();
+            testFunction(newElement);
+        }
+    }
+}
+
+function searchLocation() {
+    let query = document.getElementById("search-bar").value;
+    const request = {
+        query: query,
+        fields: ["geometry"]
+    };
+    console.log(map);
+    let service = new google.maps.places.PlacesService(map);
+    service.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            if (results[0]) {
+                map.setCenter(results[0].geometry.location);
+                console.log("Search Results: Lat:", results[0].geometry.location.lat, "Long:", results[0].geometry.location.lng);
+                findAllClosestRestaurants(results[0].geometry.location, service);
+            } else {
+                console.log("No results to show");
+            }
+        } else {
+            console.log("No connection to Maps API");
+        }
+    })
 }
 
 /*
 defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=myMap"
 */
+
+//TODO: Figure out a good structure for the results and how they could be scrolled through
