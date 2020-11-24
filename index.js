@@ -6,14 +6,7 @@ function initMap() {
         center: new google.maps.LatLng(50.835160, -0.137110), zoom: 15,
     };
     map = new google.maps.Map(document.getElementById("map"), mapProp);
-    let home = { lat: 50.835160, lng: -0.137110 };
-    var marker = new google.maps.Marker({ position: home, animation: google.maps.Animation.BOUNCE });
-    marker.setMap(map);
-    var infoWindow = new google.maps.InfoWindow({
-        content: "Whaddup"
-    });
-    infoWindow.open(map, marker);
-    
+
 
 }
 
@@ -22,7 +15,7 @@ function displayResults(element) {
     let listElement = document.createElement("li");
     listElement.appendChild(element);
     list.appendChild(listElement);
-    
+
 }
 
 async function submitReview() {
@@ -31,37 +24,48 @@ async function submitReview() {
     stars = checkRating(stars);
     veganism = checkRating(veganism);
     if (stars && veganism) {
-        let name = document.getElementById("author-input").value;
-        if (name && name !== "Name goes here...") {
-            let comment = document.getElementById("comment-input").value;
-            if (comment === "Comment goes here...") {
-                comment = "";
-            }
-            let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
-            let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
-            await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
-                method: 'POST',
-                body: bodyData,
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-                }
-            })
-                .then(function (data) {
-                    console.log("Request succeeded with response", data);
-                })
-                .catch(function (error) {
-                    console.log("Your request failed: " + error);
-                });
+        let comment = document.getElementById("comment-input").value;
+        if (comment === "Comment goes here...") {
+            comment = "";
         }
+        let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
+        let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
+        await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
+            method: 'POST',
+            body: bodyData,
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            }
+        })
+            .then(function (data) {
+                this.setCookie(restaurantID);
+                console.log("Request succeeded with response", data);
+                document.getElementById("author-input").value = "";
+                document.getElementById("comment-input").value = "";
+                let radioStar = document.getElementsByName("radStar");
+                let radioVeganism = document.getElementsByName("radVeganism");
+                for (var i = 0; i < 5; i++) {
+                    radioStar[i].checked = false;
+                    radioVeganism[i].checked = false;
+                }
+                document.getElementsByClassName("column-right")[0].style.visibility = 'hidden';
+                alert("Thanks for the review!");
+            })
+            .catch(function (error) {
+                console.log("Your request failed: " + error);
+            });
+
+
     }
-    this.resetForm();
 }
 
+function setCookie(restaurantID) {
+    let date = new Date();
+    date.setTime(date.getTime() + 604800000);
+    let cookieName = "veganism" + Date.now();
 
-
-function resetForm() {
-    
 }
+
 
 function getGeolocation() {
     if (navigator.geolocation) {

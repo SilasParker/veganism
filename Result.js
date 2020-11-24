@@ -12,7 +12,7 @@ class Result {
 
     async setResults() {
         let something = await this.getResultRatings();
-        if(something) {
+        if (something) {
             this.results = something;
             return this.toHTML();
         }
@@ -21,7 +21,7 @@ class Result {
     getName() {
         return this.name;
     }
-    
+
 
     getPhoto() {
         return this.photo;
@@ -40,20 +40,20 @@ class Result {
     }
 
     async getResultRatings() {
-        const response = await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php?restaurantID="+this.placeID);
-        
+        const response = await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php?restaurantID=" + this.placeID);
+
         const json = await response.json();
-        
+
         return json;
     }
 
     calculateRating(ratingType) {
-        if(this.results.ratings) {
+        if (this.results.ratings) {
             let total = 0;
-            for(let i = 0;i < this.results.ratings.length;i++) {
+            for (let i = 0; i < this.results.ratings.length; i++) {
                 total += parseInt(this.results.ratings[i][ratingType]);
             }
-            return total/this.results.ratings.length;
+            return total / this.results.ratings.length;
         } else {
             return "No Reviews (yet)";
         }
@@ -66,15 +66,15 @@ class Result {
         restaurantName.innerHTML = this.name;
         let ratingsDiv = document.createElement("div");
         let veganismRating = document.createElement("p");
-        veganismRating.innerHTML = "Veganism: "+this.calculateRating("veganism-rating")+"*";
+        veganismRating.innerHTML = "Veganism: " + this.calculateRating("veganism-rating") + "*";
         let userRating = document.createElement("p");
-        userRating.innerHTML = "User Rating: "+this.calculateRating("star-rating")+"*";
+        userRating.innerHTML = "User Rating: " + this.calculateRating("star-rating") + "*";
         let mapRating = document.createElement("p");
-        mapRating.innerHTML = "GMaps Rating: "+this.mapsRating+"*";
+        mapRating.innerHTML = "GMaps Rating: " + this.mapsRating + "*";
         let restaurantAddress = document.createElement("p");
         restaurantAddress.innerHTML = this.address;
         let restaurantPhoto = document.createElement("img");
-        if(this.photo) {
+        if (this.photo) {
             restaurantPhoto.src = this.photo[0].getUrl();
             restaurantPhoto.width = "200";
             restaurantPhoto.height = "150";
@@ -84,7 +84,7 @@ class Result {
         reviewButton.type = "button";
         reviewButton.innerHTML = "Review";
         let self = this;
-        reviewButton.onclick = function() {self.updateForm();}
+        reviewButton.onclick = function () { self.updateForm(); }
         divWrapper.appendChild(restaurantName);
         divWrapper.appendChild(restaurantPhoto);
         ratingsDiv.appendChild(veganismRating);
@@ -97,9 +97,18 @@ class Result {
     }
 
     updateForm() {
+        document.getElementsByClassName("column-right")[0].style.visibility = 'visible'
         let formDiv = document.getElementById("write-review");
-        formDiv.getElementsByTagName("h2")[0].innerHTML = "Write Review for "+this.name;
+        formDiv.getElementsByTagName("h2")[0].innerHTML = "Write Review for " + this.name;
         formDiv.getElementsByTagName("h2")[0].id = this.placeID;
+        document.getElementById("author-input").value = "";
+        document.getElementById("comment-input").value = "";
+        let radioStar = document.getElementsByName("radStar");
+        let radioVeganism = document.getElementsByName("radVeganism");
+        for (var i = 0; i < 5; i++) {
+            radioStar[i].checked = false;
+            radioVeganism[i].checked = false;
+        }
     }
 }
 /*
