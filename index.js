@@ -23,37 +23,43 @@ async function submitReview() {
     let veganism = document.getElementsByClassName("review-veganism");
     stars = checkRating(stars);
     veganism = checkRating(veganism);
-    if (stars && veganism) {
-        let comment = document.getElementById("comment-input").value;
-        if (comment === "Comment goes here...") {
-            comment = "";
-        }
-        let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
-        let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
-        await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
-            method: 'POST',
-            body: bodyData,
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    let name = document.getElementById("author-input").value;
+    if (stars && veganism && name) {
+        
+            let comment = document.getElementById("comment-input").value;
+            if (comment === "Comment goes here...") {
+                comment = "";
             }
-        })
-            .then(function (data) {
-                this.setCookie(restaurantID);
-                console.log("Request succeeded with response", data);
-                document.getElementById("author-input").value = "";
-                document.getElementById("comment-input").value = "";
-                let radioStar = document.getElementsByName("radStar");
-                let radioVeganism = document.getElementsByName("radVeganism");
-                for (var i = 0; i < 5; i++) {
-                    radioStar[i].checked = false;
-                    radioVeganism[i].checked = false;
+            let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
+            if(this.alreadyReviewed(restaurantID)) {
+                alert("Sorry, you have already reviewed this restaurant within the last week. Please wait until next week to try again");
+            } else {
+            let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
+            await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
+                method: 'POST',
+                body: bodyData,
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
                 }
-                document.getElementsByClassName("column-right")[0].style.visibility = 'hidden';
-                alert("Thanks for the review!");
             })
-            .catch(function (error) {
-                console.log("Your request failed: " + error);
-            });
+                .then(function (data) {
+                    this.setCookie(restaurantID);
+                    console.log("Request succeeded with response", data);
+                    document.getElementById("author-input").value = "";
+                    document.getElementById("comment-input").value = "";
+                    let radioStar = document.getElementsByName("radStar");
+                    let radioVeganism = document.getElementsByName("radVeganism");
+                    for (var i = 0; i < 5; i++) {
+                        radioStar[i].checked = false;
+                        radioVeganism[i].checked = false;
+                    }
+                    document.getElementsByClassName("column-right")[0].style.visibility = 'hidden';
+                    alert("Thanks for the review!");
+                })
+                .catch(function (error) {
+                    alert("Your request failed: " + error);
+                });            
+            }
 
 
     }
@@ -62,8 +68,21 @@ async function submitReview() {
 function setCookie(restaurantID) {
     let date = new Date();
     date.setTime(date.getTime() + 604800000);
-    let cookieName = "veganism" + Date.now();
+    let expires = ";expires"+date.toUTCString();
+    let cookieName = "veganism" + Date.now()+"=";
+    document.cookie = cookieName+restaurantID+expires+";path=/";
 
+}
+
+function alreadyReviewed(restaurantID) {
+    let allCookies = document.cookie.split(";");
+    for(var i = 0;i < allCookies.length;i++) {
+        let substringStart = allCookies[i].indexOf('=');
+        if(allCookies[i].substr(substringStart+1) === restaurantID) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -131,6 +150,7 @@ function findAllClosestRestaurants(location, service) {
 
 async function generateNearbyRestaurants(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
+        document.getElementById("results-ordered-list").innerHTML = "";
         for (let i = 0; i < results.length; i++) {
             let marker = new google.maps.Marker({ position: results[i].geometry.location });
             marker.setMap(map);
@@ -162,8 +182,3 @@ function searchLocation() {
     })
 }
 
-/*
-defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=myMap"
-*/
-
-//TODO: Figure out a good structure for the results and how they could be scrolled through

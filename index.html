@@ -10,26 +10,29 @@
 <body>
     <div id="search">
         <button id="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
-        <input id="search-bar" type="text" value="Type here...">
+        <input id="search-bar" type="text" placeholder="Type here...">
         <button type="button" id="search-submit" onclick=searchLocation()>Search</button>
         <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
     <div class="scroller-review">
         <div class="scroller-restaurant">
-            <h3>Jenny's</h3>
+            <h3 id="scroller-restaurant-name">Jenny's</h3>
+        </div>
+        <div class="scroller-photo">
+            <img id="scroller-photo-img">
         </div>
         <div class="scroller-rating">
-            <p>Overall: 4*</p>
-            <p>Veganism: 2*</p>
+            <p id="scroller-rating-user">Overall: 4*</p>
+            <p id="scroller-rating-veganism">Veganism: 2*</p>
         </div>
         <div class="scroller-comment">
-            <p><b>Brilliant for a lovely local breakfast</b></p>
+            <p id="scroller-comment-text"><b>Brilliant for a lovely local breakfast</b></p>
         </div>
         <div class="scroller-author">
-            <p><i>-- Conker Bones Sparkler Parker</i></p>
+            <p id="scroller-author-text"><i>-- Conker Bones Sparkler Parker</i></p>
         </div>
         <div class="scroller-report">
-            <button type="button">Report</button>
+            <button type="button" id="scroller-report-btn">Report</button>
         </div>
     </div>
     <div id="tri-column" class="row">
