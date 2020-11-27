@@ -5,9 +5,15 @@ class Result {
         this.name = place.name;
         this.photo = place.photos;
         this.placeID = place.place_id;
-        this.mapsRating = place.rating;
+        if (place.rating !== undefined) {
+            this.mapsRating = place.rating;
+        } else {
+            this.mapsRating = "No Reviews (yet)";
+        }
+
         this.address = place.vicinity;
         this.results;
+
     }
 
     async setResults() {
@@ -16,6 +22,39 @@ class Result {
             this.results = something;
             return this.toHTML();
         }
+    }
+
+    generateComments() {
+        let allComments = [];
+        let reviews = this.results.ratings;
+        console.log(reviews);
+        if (reviews) {
+            if (reviews.length > 10) {
+                console.log("more than 10 apparently");
+                let randomIndexes = [];
+                while (randomIndexes.length < 10) {
+                    let random = Match.floor(Math.random() * reviews.length);
+                    if (arr.indexOf(random) === -1) {
+                        randomIndexes.push(random);
+                        if (reviews[random]["reported"] === 0) {
+                            allComments.push(new Comment(this.name, reviews[random]["star-rating"], reviews[random]["veganism-rating"], reviews[random]["comment"], reviews[random]["author"], reviews[random]["comment-id"], this.photo));
+                        }
+                    }
+                }
+            } else {
+                console.log("uh");
+                for (let i = 0; i < reviews.length; i++) {
+                    console.log("reported?");
+                    console.log(reviews[i]["reported"]);
+                    console.log("Pushed");
+                    allComments.push(new Comment(this.name, reviews[i]["star-rating"], reviews[i]["veganism-rating"], reviews[i]["comment"], reviews[i]["author"], reviews[i]["comment-id"], this.photo));
+                }
+            }
+            console.log("all comments");
+            console.log(allComments);
+            return allComments;
+        }
+        return null;
     }
 
     getName() {
@@ -110,7 +149,6 @@ class Result {
             radioVeganism[i].checked = false;
         }
     }
+
+
 }
-/*
-Next TODO: Make the Review buttons functional so that it brings it up on the right and then so that the review sends a review to the correct restaurant
-*/

@@ -4,6 +4,7 @@ class VeganismAPI {
     private $conn;
 
     public function __construct() {
+        
         $this->conn = new mysqli("localhost","sp1178_silas","Silas170199","sp1178_veganism");
         if($this->conn->connect_error) {
             http_response_code(500);
@@ -76,7 +77,7 @@ class VeganismAPI {
     private function handleGET($restaurant_id) {
         $rid_valid = $this->checkRID($restaurant_id);
         if($rid_valid) {
-            $sql = "SELECT `author`,`comment`,`star-rating`,`veganism-rating` FROM reviews WHERE `restaurant-id`='".$restaurant_id."' AND reported=false";
+            $sql = "SELECT `author`,`comment`,`star-rating`,`veganism-rating`,`comment-id` FROM reviews WHERE `restaurant-id`='".$restaurant_id."' AND reported=0";
             $result = $this->conn->query($sql);
             if(mysqli_num_rows($result) == 0) {
                 http_response_code(204);

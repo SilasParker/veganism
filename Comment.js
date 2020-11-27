@@ -1,5 +1,5 @@
 class Comment {
-    constructor(restaurantName,rating,veganism,comment,name,commentID,photo) {
+    constructor(restaurantName, rating, veganism, comment, name, commentID, photo) {
         this.restaurantName = restaurantName;
         this.rating = rating;
         this.veganism = veganism;
@@ -8,7 +8,7 @@ class Comment {
         this.commentID = commentID;
         this.photo = photo
     }
-    
+
     setHTML() {
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
         document.getElementById("scroller-rating-user").innerHTML = this.rating;
@@ -16,14 +16,14 @@ class Comment {
         document.getElementById("scroller-comment-text").innerHTML = this.comment;
         document.getElementById("scroller-author-text").innerHTML = this.name;
         document.getElementById("scroller-report-btn").onclick = this.reportComment();
-        if(this.photo) {
-           document.getElementById("scroller-photo-img").src = this.photo[0].getUrl(); 
+        if (this.photo) {
+            document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
         }
-        
+
     }
-    
+
     reportComment() {
-        
+
     }
 }
 

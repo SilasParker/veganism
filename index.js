@@ -1,4 +1,4 @@
-
+var scrollerComments = [];
 var map;
 
 function initMap() {
@@ -25,15 +25,15 @@ async function submitReview() {
     veganism = checkRating(veganism);
     let name = document.getElementById("author-input").value;
     if (stars && veganism && name) {
-        
-            let comment = document.getElementById("comment-input").value;
-            if (comment === "Comment goes here...") {
-                comment = "";
-            }
-            let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
-            if(this.alreadyReviewed(restaurantID)) {
-                alert("Sorry, you have already reviewed this restaurant within the last week. Please wait until next week to try again");
-            } else {
+
+        let comment = document.getElementById("comment-input").value;
+        if (comment === "Comment goes here...") {
+            comment = "";
+        }
+        let restaurantID = document.getElementById("write-review").getElementsByTagName("h2")[0].id;
+        if (this.alreadyReviewed(restaurantID)) {
+            alert("Sorry, you have already reviewed this restaurant within the last week. Please wait until next week to try again");
+        } else {
             let bodyData = "restaurantID=" + restaurantID + "&stars=" + stars + "&veganism=" + veganism + "&name=" + name + "&comment=" + comment;
             await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
                 method: 'POST',
@@ -58,8 +58,8 @@ async function submitReview() {
                 })
                 .catch(function (error) {
                     alert("Your request failed: " + error);
-                });            
-            }
+                });
+        }
 
 
     }
@@ -68,17 +68,17 @@ async function submitReview() {
 function setCookie(restaurantID) {
     let date = new Date();
     date.setTime(date.getTime() + 604800000);
-    let expires = ";expires"+date.toUTCString();
-    let cookieName = "veganism" + Date.now()+"=";
-    document.cookie = cookieName+restaurantID+expires+";path=/";
+    let expires = ";expires" + date.toUTCString();
+    let cookieName = "veganism" + Date.now() + "=";
+    document.cookie = cookieName + restaurantID + expires + ";path=/";
 
 }
 
 function alreadyReviewed(restaurantID) {
     let allCookies = document.cookie.split(";");
-    for(var i = 0;i < allCookies.length;i++) {
+    for (var i = 0; i < allCookies.length; i++) {
         let substringStart = allCookies[i].indexOf('=');
-        if(allCookies[i].substr(substringStart+1) === restaurantID) {
+        if (allCookies[i].substr(substringStart + 1) === restaurantID) {
             return true;
         }
     }
@@ -151,13 +151,27 @@ function findAllClosestRestaurants(location, service) {
 async function generateNearbyRestaurants(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         document.getElementById("results-ordered-list").innerHTML = "";
+        scrollerComments = [];
         for (let i = 0; i < results.length; i++) {
             let marker = new google.maps.Marker({ position: results[i].geometry.location });
             marker.setMap(map);
-            let test = new Result(results[i]);
-            let newElement = await test.setResults();
+            let result = new Result(results[i]);
+            await result.setResults();
+            let comments = result.generateComments();
+            console.log("all comments:");
+            console.log(comments);
+            if (comments) {
+                console.log("adding comments");
+                for (let j = 0; j < comments.length; j++) {
+                    console.log("adding");
+                    scrollerComments.push(comments[j]);
+                }
+            }
+
+            let newElement = await result.setResults();
             displayResults(newElement);
         }
+        await this.scrollThroughComments();
     }
 }
 
@@ -180,5 +194,19 @@ function searchLocation() {
             console.log("No connection to Maps API");
         }
     })
+}
+
+async function scrollThroughComments() {
+    console.log("comments:");
+    console.log(scrollerComments);
+    if (scrollerComments.length > 0) {
+        while (true) {
+            console.log("im freee, freeee scrollin");
+            let randomIndex = Math.floor(Math.random() * scrollerComments.length);
+            console.log("index " + randomIndex);
+            scrollerComments[randomIndex].setHTML(); //y u no work
+            await sleep(2000);
+        }
+    }
 }
 
