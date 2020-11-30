@@ -204,7 +204,9 @@ async function scrollThroughComments() {
             console.log("im freee, freeee scrollin");
             let randomIndex = Math.floor(Math.random() * scrollerComments.length);
             console.log("index " + randomIndex);
-            scrollerComments[randomIndex].setHTML(); //y u no work
+            console.log(scrollerComments[randomIndex] instanceof Comment);
+            let commentToAssess = scrollerComments[randomIndex];
+            commentToAssess.setHTML(); //y u no work
             await sleep(2000);
         }
     }

@@ -9,6 +9,10 @@ class Comment {
         this.photo = photo
     }
 
+    test() {
+        console.log("JEFF");
+    }
+
     setHTML() {
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
         document.getElementById("scroller-rating-user").innerHTML = this.rating;
@@ -22,9 +26,7 @@ class Comment {
 
     }
 
-    reportComment() {
-
-    }
+    
 }
 
 //How it works: index calls a function of result that generates a bunch of comments per result and adds them to a global array in index that then scrolls through them every so often

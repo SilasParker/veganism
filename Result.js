@@ -37,7 +37,9 @@ class Result {
                     if (arr.indexOf(random) === -1) {
                         randomIndexes.push(random);
                         if (reviews[random]["reported"] === 0) {
-                            allComments.push(new Comment(this.name, reviews[random]["star-rating"], reviews[random]["veganism-rating"], reviews[random]["comment"], reviews[random]["author"], reviews[random]["comment-id"], this.photo));
+                            let commentToPush = new Comment(this.name, reviews[random]["star-rating"], reviews[random]["veganism-rating"], reviews[random]["comment"], reviews[random]["author"], reviews[random]["comment-id"], this.photo);
+                            allComments.push(commentToPush);
+
                         }
                     }
                 }
@@ -47,7 +49,8 @@ class Result {
                     console.log("reported?");
                     console.log(reviews[i]["reported"]);
                     console.log("Pushed");
-                    allComments.push(new Comment(this.name, reviews[i]["star-rating"], reviews[i]["veganism-rating"], reviews[i]["comment"], reviews[i]["author"], reviews[i]["comment-id"], this.photo));
+                    let commentToPush = new Comment(this.name,reviews[i]["star-rating"],reviews[i]["veganism-rating"],reviews[i]["comment"],reviews[i]["author"],reviews[i]["comment-id"],this.photo);
+                    allComments.push(commentToPush);
                 }
             }
             console.log("all comments");
