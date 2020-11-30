@@ -9,9 +9,6 @@ class Comment {
         this.photo = photo
     }
 
-    test() {
-        console.log("JEFF");
-    }
 
     setHTML() {
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
@@ -19,12 +16,36 @@ class Comment {
         document.getElementById("scroller-rating-veganism").innerHTML = this.veganism;
         document.getElementById("scroller-comment-text").innerHTML = this.comment;
         document.getElementById("scroller-author-text").innerHTML = this.name;
-        document.getElementById("scroller-report-btn").onclick = this.reportComment();
+        let comment = this;
+        document.getElementById("scroller-report-btn").onclick = async function() {await comment.reportComment();};
         if (this.photo) {
             document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
         }
 
     }
+
+    async reportComment() {
+        //DO PUT NOT POST
+
+        let bodyData = "commentID=" + this.commentID + "&reported=1";
+        await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
+            method: 'POST',
+            body: bodyData,
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            }
+        })
+            .then(function (data) {
+                console.log("Request succeeded with response", data);
+                alert("Thanks for the report! Someone will look into this review ASAP");
+            })
+            .catch(function (error) {
+                alert("Your request failed: " + error);
+            });
+    }
+
+
+
 
     
 }

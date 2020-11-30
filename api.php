@@ -22,6 +22,8 @@ class VeganismAPI {
         if($_SERVER['REQUEST_METHOD'] === "POST") {
             if(isset($_POST['restaurantID']) && isset($_POST['stars']) && isset($_POST['veganism']) && isset($_POST['name'])) {
                 $this->handlePOST($_POST['name'],$_POST['restaurantID'],$_POST['comment'],$_POST['stars'],$_POST['veganism']);
+            } else if(isset($_POST['commentID'])) {
+                $this->handleReportPOST($_POST['commentID']);
             } else {
                 http_response_code(400);
             }
@@ -31,6 +33,22 @@ class VeganismAPI {
             } else {
                 http_response_code(400);
             }
+        } else {
+            http_response_code(400);
+        }
+    }
+
+
+
+    private function handleReportPOST($comment_id) {
+        if(is_int($comment_id)) {
+            $prep = $this->conn->prepare("UPDATE `reviews` SET `reported`=? WHERE `comment-id`=?");
+            echo $prep->error;
+            $prep->bind_param("is",1,$comment_id);
+            $prep->execute();
+            $prep->close();
+            http_response_code(200);
+            $_POST = array();
         } else {
             http_response_code(400);
         }

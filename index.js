@@ -196,19 +196,20 @@ function searchLocation() {
     })
 }
 
-async function scrollThroughComments() {
+function scrollThroughComments() {
     console.log("comments:");
     console.log(scrollerComments);
     if (scrollerComments.length > 0) {
-        while (true) {
+        
             console.log("im freee, freeee scrollin");
             let randomIndex = Math.floor(Math.random() * scrollerComments.length);
             console.log("index " + randomIndex);
             console.log(scrollerComments[randomIndex] instanceof Comment);
             let commentToAssess = scrollerComments[randomIndex];
+            console.log(commentToAssess);
             commentToAssess.setHTML(); //y u no work
-            await sleep(2000);
-        }
+            //await sleep(2000);
+        
     }
 }
 
