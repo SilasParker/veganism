@@ -152,18 +152,15 @@ async function generateNearbyRestaurants(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         document.getElementById("results-ordered-list").innerHTML = "";
         scrollerComments = [];
+        let labels = "ABCDEFGHIJKLMNOPQRST";
         for (let i = 0; i < results.length; i++) {
-            let marker = new google.maps.Marker({ position: results[i].geometry.location });
-            marker.setMap(map);
             let result = new Result(results[i]);
             await result.setResults();
+            let marker = new google.maps.Marker({ position: results[i].geometry.location, label: labels[i] });
+            marker.setMap(map);
             let comments = result.generateComments();
-            console.log("all comments:");
-            console.log(comments);
             if (comments) {
-                console.log("adding comments");
                 for (let j = 0; j < comments.length; j++) {
-                    console.log("adding");
                     scrollerComments.push(comments[j]);
                 }
             }
@@ -197,19 +194,34 @@ function searchLocation() {
 }
 
 function scrollThroughComments() {
-    console.log("comments:");
-    console.log(scrollerComments);
     if (scrollerComments.length > 0) {
-        
-            console.log("im freee, freeee scrollin");
-            let randomIndex = Math.floor(Math.random() * scrollerComments.length);
-            console.log("index " + randomIndex);
-            console.log(scrollerComments[randomIndex] instanceof Comment);
-            let commentToAssess = scrollerComments[randomIndex];
-            console.log(commentToAssess);
-            commentToAssess.setHTML(); //y u no work
-            //await sleep(2000);
-        
+        let randomIndex = Math.floor(Math.random() * scrollerComments.length);
+        let commentToAssess = scrollerComments[randomIndex];
+        commentToAssess.setHTML(); //y u no work
+        setTimeout(() => { this.scrollThroughComments(); }, 10000);
+    } else {
+        document.getElementById("scroller-restaurant-name").innerHTML = "No Reviewed Local Restaurants, Sorry!";
+        document.getElementById("scroller-rating-user").innerHTML = "";
+        document.getElementById("scroller-rating-veganism").innerHTML = "";
+        document.getElementById("scroller-comment-text").innerHTML = "Feel free to leave a review for your favourite local vegan restaurant";
+        document.getElementById("scroller-author-text").innerHTML = "";
+        document.getElementById("scroller-report-btn").style.display = "none";
+        document.getElementById("scroller-photo-img").style.display = "none";
+
     }
 }
 
+/*
+        document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
+        document.getElementById("scroller-rating-user").innerHTML = this.rating;
+        document.getElementById("scroller-rating-veganism").innerHTML = this.veganism;
+        document.getElementById("scroller-comment-text").innerHTML = this.comment;
+        document.getElementById("scroller-author-text").innerHTML = this.name;
+        let comment = this;
+        document.getElementById("scroller-report-btn").onclick = async function() {await comment.reportComment();};
+        if (this.photo) {
+            document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
+            document.getElementById("scroller-photo-img").width = 200;
+            document.getElementById("scroller-photo-img").height = 150;
+        }
+        */

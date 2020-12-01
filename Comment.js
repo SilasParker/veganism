@@ -12,22 +12,24 @@ class Comment {
 
     setHTML() {
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
-        document.getElementById("scroller-rating-user").innerHTML = this.rating;
-        document.getElementById("scroller-rating-veganism").innerHTML = this.veganism;
+        document.getElementById("scroller-rating-user").innerHTML = "Vegan Food Rating: " + this.rating + "*";
+        document.getElementById("scroller-rating-veganism").innerHTML = "Vegan Scale: " + this.veganism + "*";
         document.getElementById("scroller-comment-text").innerHTML = this.comment;
         document.getElementById("scroller-author-text").innerHTML = this.name;
         let comment = this;
-        document.getElementById("scroller-report-btn").onclick = async function() {await comment.reportComment();};
+        document.getElementById("scroller-report-btn").onclick = async function () { await comment.reportComment(); };
         if (this.photo) {
+            document.getElementById("scroller-photo-img").style.display = "block";
             document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
+            document.getElementById("scroller-photo-img").width = 200;
+            document.getElementById("scroller-photo-img").height = 150;
         }
 
     }
 
     async reportComment() {
         //DO PUT NOT POST
-
-        let bodyData = "commentID=" + this.commentID + "&reported=1";
+        let bodyData = "commentID=" + this.commentID;
         await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
             method: 'PUT',
             body: bodyData,
@@ -47,7 +49,7 @@ class Comment {
 
 
 
-    
+
 }
 
 //How it works: index calls a function of result that generates a bunch of comments per result and adds them to a global array in index that then scrolls through them every so often

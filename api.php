@@ -33,9 +33,7 @@ class VeganismAPI {
             }
         } else if($_SERVER['REQUEST_METHOD'] === "PUT") {
             $body = file_get_contents('php://input');
-            echo $body;
             if($body) {
-                echo 'i like you';
                 $this->handlePUT(substr($body,10));
             }
         } else {
@@ -46,23 +44,21 @@ class VeganismAPI {
 
 
     private function handlePUT($comment_id) {
-        echo $comment_id;
         if(ctype_digit($comment_id)) {
             $comment_id = (int) $comment_id;
-            echo 'ah!'; //you're up to here in figurin it out
+            $one = 1;
             $prep = $this->conn->prepare("UPDATE `reviews` SET `reported`=? WHERE `comment-id`=?");
-            $prep->bind_param("ii",1,$comment_id);
+            $prep->bind_param("ii",$one,$comment_id);
             $prep->execute();
             if($prep->error) {
+                http_response_code(400);
                 echo $prep->error;
             } else {
-                echo 'fuck you';
+                http_response_code(200);
             }
             $prep->close();
-            http_response_code(200);
             $_POST = array();
         } else {
-            echo "oh";
             http_response_code(400);
         }
     }

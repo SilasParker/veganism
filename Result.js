@@ -27,10 +27,8 @@ class Result {
     generateComments() {
         let allComments = [];
         let reviews = this.results.ratings;
-        console.log(reviews);
         if (reviews) {
             if (reviews.length > 10) {
-                console.log("more than 10 apparently");
                 let randomIndexes = [];
                 while (randomIndexes.length < 10) {
                     let random = Match.floor(Math.random() * reviews.length);
@@ -44,17 +42,11 @@ class Result {
                     }
                 }
             } else {
-                console.log("uh");
                 for (let i = 0; i < reviews.length; i++) {
-                    console.log("reported?");
-                    console.log(reviews[i]["reported"]);
-                    console.log("Pushed");
-                    let commentToPush = new Comment(this.name,reviews[i]["star-rating"],reviews[i]["veganism-rating"],reviews[i]["comment"],reviews[i]["author"],reviews[i]["comment-id"],this.photo);
+                    let commentToPush = new Comment(this.name, reviews[i]["star-rating"], reviews[i]["veganism-rating"], reviews[i]["comment"], reviews[i]["author"], reviews[i]["comment-id"], this.photo);
                     allComments.push(commentToPush);
                 }
             }
-            console.log("all comments");
-            console.log(allComments);
             return allComments;
         }
         return null;
