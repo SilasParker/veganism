@@ -22,8 +22,6 @@ class VeganismAPI {
         if($_SERVER['REQUEST_METHOD'] === "POST") {
             if(isset($_POST['restaurantID']) && isset($_POST['stars']) && isset($_POST['veganism']) && isset($_POST['name'])) {
                 $this->handlePOST($_POST['name'],$_POST['restaurantID'],$_POST['comment'],$_POST['stars'],$_POST['veganism']);
-            } else if(isset($_POST['commentID'])) {
-                $this->handleReportPOST($_POST['commentID']);
             } else {
                 http_response_code(400);
             }
@@ -33,6 +31,13 @@ class VeganismAPI {
             } else {
                 http_response_code(400);
             }
+        } else if($_SERVER['REQUEST_METHOD'] === "PUT") {
+            $body = file_get_contents('php://input');
+            echo $body;
+            if($body) {
+                echo 'i like you';
+                $this->handlePUT(substr($body,10));
+            }
         } else {
             http_response_code(400);
         }
@@ -40,16 +45,24 @@ class VeganismAPI {
 
 
 
-    private function handleReportPOST($comment_id) {
-        if(is_int($comment_id)) {
+    private function handlePUT($comment_id) {
+        echo $comment_id;
+        if(ctype_digit($comment_id)) {
+            $comment_id = (int) $comment_id;
+            echo 'ah!'; //you're up to here in figurin it out
             $prep = $this->conn->prepare("UPDATE `reviews` SET `reported`=? WHERE `comment-id`=?");
-            echo $prep->error;
-            $prep->bind_param("is",1,$comment_id);
+            $prep->bind_param("ii",1,$comment_id);
             $prep->execute();
+            if($prep->error) {
+                echo $prep->error;
+            } else {
+                echo 'fuck you';
+            }
             $prep->close();
             http_response_code(200);
             $_POST = array();
         } else {
+            echo "oh";
             http_response_code(400);
         }
     }
@@ -131,6 +144,8 @@ class VeganismAPI {
             return false;
         }
     }
+
+
 }
 
 $test = new VeganismAPI();

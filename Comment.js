@@ -29,7 +29,7 @@ class Comment {
 
         let bodyData = "commentID=" + this.commentID + "&reported=1";
         await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
-            method: 'POST',
+            method: 'PUT',
             body: bodyData,
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
