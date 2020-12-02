@@ -205,7 +205,7 @@ function scrollThroughComments() {
         document.getElementById("scroller-rating-veganism").innerHTML = "";
         document.getElementById("scroller-comment-text").innerHTML = "Feel free to leave a review for your favourite local vegan restaurant";
         document.getElementById("scroller-author-text").innerHTML = "";
-        document.getElementById("scroller-report-btn").style.display = "none";
+        document.getElementById("scroller-report-btn").style.visibility = "hidden";
         document.getElementById("scroller-photo-img").style.display = "none";
 
     }

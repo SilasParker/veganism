@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <link href="index.css" rel="stylesheet" type="text/css">
     <title>Veganism</title>
-    <h1>Veganism</h1>
+
 </head>
 
 <body>
-    <div id="search">
-        <button id="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
+    <header>
+        <h1>Veganism</h1>
+    </header>
+    <div id="search" class="search">
+        
         <input id="search-bar" type="text" placeholder="Type here...">
         <button type="button" id="search-submit" onclick=searchLocation()>Search</button>
+        <button id="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
         <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
     <div class="scroller-review">
         <div class="scroller-restaurant">
-            <h3 id="scroller-restaurant-name">Jenny's</h3>
+            <h3 id="scroller-restaurant-name"></h3>
         </div>
         <div class="scroller-photo">
             <img id="scroller-photo-img">
         </div>
         <div class="scroller-rating">
-            <p id="scroller-rating-user">Overall: 4*</p>
-            <p id="scroller-rating-veganism">Veganism: 2*</p>
+            <p id="scroller-rating-user"></p>
+            <p id="scroller-rating-veganism"></p>
         </div>
         <div class="scroller-comment">
-            <p id="scroller-comment-text"><b>Brilliant for a lovely local breakfast</b></p>
+            <p id="scroller-comment-text"><b></b></p>
         </div>
         <div class="scroller-author">
-            <p id="scroller-author-text"><i>-- Conker Bones Sparkler Parker</i></p>
+            <p id="scroller-author-text"><i></i></p>
         </div>
         <div class="scroller-report">
             <button type="button" id="scroller-report-btn">Report</button>

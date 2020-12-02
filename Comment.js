@@ -17,6 +17,7 @@ class Comment {
         document.getElementById("scroller-comment-text").innerHTML = this.comment;
         document.getElementById("scroller-author-text").innerHTML = this.name;
         let comment = this;
+        document.getElementById("scroller-report-btn").style.visibility = "visible";
         document.getElementById("scroller-report-btn").onclick = async function () { await comment.reportComment(); };
         if (this.photo) {
             document.getElementById("scroller-photo-img").style.display = "block";
@@ -28,7 +29,6 @@ class Comment {
     }
 
     async reportComment() {
-        //DO PUT NOT POST
         let bodyData = "commentID=" + this.commentID;
         await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
             method: 'PUT',
@@ -51,5 +51,3 @@ class Comment {
 
 
 }
-
-//How it works: index calls a function of result that generates a bunch of comments per result and adds them to a global array in index that then scrolls through them every so often

@@ -1,59 +1,78 @@
-body {
-    background-color: #111122;
-    color: white;
-}
+@media screen and (min-width: 800px) {
 
-.column {
-    float: left;
-    text-align: center;
-    border: 1px solid black;
-}
-
-.column-left, .column-right {
-    width: 24%;
-    height: 500px;
-}
-
-.column-left {
-    overflow: scroll;
+    body {
+        background-color: #8EB44E;
+        color: #362822;
+        margin: 0;
+    }
     
-}
+    header {
+        background-color: #304922;
+        padding: 1vw;
+    }
 
-.column-right {
-    visibility: hidden;
-}
+    .column {
+        float: left;
+        text-align: center;
+        border: 1px solid black;
+    }
 
-.column-middle {
-    width: 50%;
-}
+    .column-left, .column-right {
+        width: 24%;
+        height: 500px;
+    }
 
-.row {
-    padding-top: 5%;
-}
+    .column-left {
+        overflow: scroll;
+        
+    }
 
-#map { 
-    height: 500px;
-}
+    .column-right {
+        visibility: hidden;
+    }
 
-#results-list li {
-    border: 1px solid green;
-}
+    .column-middle {
+        width: 50%;
+    }
 
-.radio-group {
-    display: inline-block;
-    text-align: center;
-}
+    .radio-group {
+        display: inline-block;
+        text-align: center;
+    }
 
-.radio-group label {
-    display: block;
-}
+    .radio-group label {
+        display: block;
+    }
 
-.scroller-review {
-    padding-left: 60%;
-    text-align: center;
-    width: 20%;
-}
+    .row {
+        padding-top: 5%;
+    }
+    
+    .search {
+        text-align: center;
+    }
 
-.search-geolocation-error {
-    visibility: hidden;
+    .scroller-report {
+        visibility: hidden;
+    }
+
+    .scroller-review {
+        padding-left: 60%;
+        text-align: center;
+        width: 20%;
+    }
+
+    .search-geolocation-error {
+        visibility: hidden;
+    }
+
+    #map { 
+        height: 500px;
+    }
+
+    #results-list li {
+        border: 1px solid green;
+    }
+
+
 }
