@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <link href="index.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'>
     <title>Veganism</title>
 
 </head>
@@ -13,9 +14,9 @@
     </header>
     <div id="search" class="search">
         
-        <input id="search-bar" type="text" placeholder="Type here...">
-        <button type="button" id="search-submit" onclick=searchLocation()>Search</button>
-        <button id="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
+        <input id="search-bar" class="search-bar" type="text" placeholder="Type here...">
+        <button type="button" id="search-submit" onclick=searchLocation()>Search</button><br>
+        <button id="search-geolocation" class="search-geolocation" type="button" onclick=getGeolocation()>Use Current Location</button>
         <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
     <div class="scroller-review">

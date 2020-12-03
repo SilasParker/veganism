@@ -4,11 +4,29 @@
         background-color: #8EB44E;
         color: #362822;
         margin: 0;
+        font-family: 'Alata';
+        
+    }
+
+    button {
+        background-color: #D9AF52;
+        color: #362822;
+        font-size: 20px;
+        padding: 17.5px 30px;
+        border-radius: 10px;
+        border: 2px solid #B9CD90;
+    }
+
+    button:hover {
+        transition-duration: 0.5s;
+        background-color: #8d7134;
+        color: solid #D9AF52;
     }
     
     header {
         background-color: #304922;
         padding: 1vw;
+        font-size: 22px;
     }
 
     .column {
@@ -24,15 +42,22 @@
 
     .column-left {
         overflow: scroll;
-        
     }
 
-    .column-right {
-        visibility: hidden;
+    .column-left h3 {
+        font-size: 22px;
+    }
+
+    .column-left p {
+        font-size: 15px;
     }
 
     .column-middle {
         width: 50%;
+    }
+
+    .column-right {
+        visibility: hidden;
     }
 
     .radio-group {
@@ -44,12 +69,32 @@
         display: block;
     }
 
+    .result {
+        padding-bottom: 3%;
+    }
+
     .row {
         padding-top: 5%;
     }
     
     .search {
         text-align: center;
+        padding-top: 1%;
+    }
+
+    .search-bar {
+        width: 50%;
+        font-size: 25px;
+        line-height: 50px;
+        box-sizing: border-box;
+        border: 4px #D9AF52;
+        border-radius: 4px;
+        background-color: #B9CD90;
+        color: #362822
+    }
+
+    .search-geolocation {
+        margin-top: 0.5%;
     }
 
     .scroller-report {
