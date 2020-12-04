@@ -6,8 +6,8 @@ function initMap() {
         center: new google.maps.LatLng(50.835160, -0.137110), zoom: 15,
     };
     map = new google.maps.Map(document.getElementById("map"), mapProp);
-    document.getElementById("search-bar").addEventListener("keyup",function(event) {
-        if(event.key === "Enter") {
+    document.getElementById("search-bar").addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("search-submit").click();
         }
@@ -162,7 +162,7 @@ async function generateNearbyRestaurants(results, status) {
         for (let i = 0; i < results.length; i++) {
             let result = new Result(results[i]);
             await result.setResults();
-            let marker = new google.maps.Marker({ position: results[i].geometry.location, label: labels[i] });
+            let marker = new google.maps.Marker({ position: results[i].geometry.location, icon: 'Markers/marker' + labels[i] + '.png' });
             marker.setMap(map);
             let comments = result.generateComments();
             if (comments) {
@@ -173,7 +173,9 @@ async function generateNearbyRestaurants(results, status) {
 
             let newElement = await result.setResults();
             displayResults(newElement);
+
         }
+        document.getElementById("results-list").style.visibility = "visible";
         await this.scrollThroughComments();
     }
 }
@@ -217,17 +219,3 @@ function scrollThroughComments() {
     }
 }
 
-/*
-        document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
-        document.getElementById("scroller-rating-user").innerHTML = this.rating;
-        document.getElementById("scroller-rating-veganism").innerHTML = this.veganism;
-        document.getElementById("scroller-comment-text").innerHTML = this.comment;
-        document.getElementById("scroller-author-text").innerHTML = this.name;
-        let comment = this;
-        document.getElementById("scroller-report-btn").onclick = async function() {await comment.reportComment();};
-        if (this.photo) {
-            document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
-            document.getElementById("scroller-photo-img").width = 200;
-            document.getElementById("scroller-photo-img").height = 150;
-        }
-        */

@@ -25,8 +25,11 @@
     
     header {
         background-color: #304922;
-        padding: 1vw;
-        font-size: 22px;
+        padding: 1px;
+        font-weight: bolder;
+        font-size: 20px;
+        text-align: center;
+        color: #8EB44E
     }
 
     .column {
@@ -38,10 +41,13 @@
     .column-left, .column-right {
         width: 24%;
         height: 500px;
+        background-color: #B9CD90;
+        visibility: hidden;
     }
 
     .column-left {
         overflow: scroll;
+        
     }
 
     .column-left h3 {
@@ -56,10 +62,6 @@
         width: 50%;
     }
 
-    .column-right {
-        visibility: hidden;
-    }
-
     .radio-group {
         display: inline-block;
         text-align: center;
@@ -71,6 +73,10 @@
 
     .result {
         padding-bottom: 3%;
+    }
+
+    .results-ordered-list li {
+        border: 5px solid #8d7134;
     }
 
     .row {
@@ -115,9 +121,13 @@
         height: 500px;
     }
 
-    #results-list li {
-        border: 1px solid green;
-    }
+
 
 
 }
+
+/*
+Keep working on results borders
+format the review column
+make scroll bar mustard
+*/
