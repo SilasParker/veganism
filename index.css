@@ -1,7 +1,8 @@
 @media screen and (min-width: 800px) {
 
     body {
-        background-color: #8EB44E;
+        background: rgb(98,124,54);
+        background: linear-gradient(180deg, rgba(98,124,54,1) 0%,rgba(142,180,78,1) 50%,rgba(255,200,81,100) 100%);
         color: #362822;
         margin: 0;
         font-family: 'Alata';
@@ -9,7 +10,7 @@
     }
 
     button {
-        background-color: #D9AF52;
+        background-color: #ffc851;
         color: #362822;
         font-size: 20px;
         padding: 17.5px 30px;
@@ -19,7 +20,7 @@
 
     button:hover {
         transition-duration: 0.5s;
-        background-color: #8d7134;
+        background-color: #D9AF52;
         color: solid #D9AF52;
     }
     
@@ -35,19 +36,23 @@
     .column {
         float: left;
         text-align: center;
-        border: 1px solid black;
+        margin-bottom: 20px;
+        border-radius: 4px;
     }
 
     .column-left, .column-right {
-        width: 24%;
+        width: 20%;
         height: 500px;
         background-color: #B9CD90;
         visibility: hidden;
+
     }
 
     .column-left {
         overflow: scroll;
-        
+        margin-left: 5%;
+        border: 6px solid #EC615F;
+        border-right: none;
     }
 
     .column-left h3 {
@@ -60,7 +65,15 @@
 
     .column-middle {
         width: 50%;
+        border: 6px solid #EC615F;
     }
+
+    .column-right {
+        border: 6px solid #EC615F;
+        border-left: none;
+        
+    }
+    
 
     .radio-group {
         display: inline-block;
