@@ -7,6 +7,7 @@
         margin: 0;
         font-family: 'Alata';
         
+        
     }
 
     button {
@@ -22,6 +23,7 @@
         transition-duration: 0.5s;
         background-color: #D9AF52;
         color: solid #D9AF52;
+        cursor: pointer;
     }
     
     header {
@@ -31,6 +33,10 @@
         font-size: 20px;
         text-align: center;
         color: #8EB44E;
+    }
+
+    html {
+        height: 100%;
     }
 
     ul {
@@ -46,15 +52,16 @@
 
     .column-left, .column-right {
         width: 20%;
-        height: 500px;
+        height: 525px;
         background-color: #B9CD90;
         visibility: hidden;
+        overflow-y: scroll;
+        overflow-x: hidden;
 
     }
 
     .column-left {
-        overflow-y: scroll;
-        overflow-x: hidden;
+
         margin-left: 5%;
         border: 6px solid #EC615F;
         border-right: none;
@@ -113,11 +120,11 @@
     }
 
     .search-bar {
-        width: 50%;
+        width: 40%;
         font-size: 25px;
         line-height: 50px;
         box-sizing: border-box;
-        border: 4px #D9AF52;
+        border: 4px solid #304922;
         border-radius: 4px;
         background-color: #B9CD90;
         color: #362822
@@ -135,26 +142,42 @@
         padding-left: 60%;
         text-align: center;
         width: 20%;
+        display: none;
     }
 
     .search-geolocation-error {
         visibility: hidden;
     }
 
+    .review-comment-input {
+        width: 75%;
+        font-size: 15px;
+        height: 10%;
+        box-sizing: border-box;
+        border: 2px solid #304922;
+        border-radius: 4px;
+        background-color: #B9CD90;
+        color: #362822;
+        font: 'Alata';
+    }
+
     .review-name-input {
-        padding-bottom: 1%;
-        width: 50%;
+        width: 75%;
         font-size: 15px;
         line-height: 25px;
         box-sizing: border-box;
-        border: #304922;
+        border: 2px solid #304922;
         border-radius: 4px;
         background-color: #B9CD90;
         color: #362822;
     }
 
     #map { 
-        height: 500px;
+        height: 525px;
+    }
+
+    ::placeholder {
+        color: #363230
     }
 
 
