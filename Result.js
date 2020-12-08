@@ -13,12 +13,14 @@ class Result {
 
         this.address = place.vicinity;
         this.results;
+        this.label;
 
     }
 
-    async setResults() {
+    async setResults(label) {
         let something = await this.getResultRatings();
         if (something) {
+            this.label = label;
             this.results = something;
             return this.toHTML();
         }
@@ -96,6 +98,9 @@ class Result {
     toHTML() {
         let divWrapper = document.createElement("div");
         divWrapper.className = "result";
+        let labelPara = document.createElement("h4");
+        labelPara.innerHTML = this.label + ".";
+        labelPara.className = "result-label";
         let restaurantName = document.createElement("h3");
         restaurantName.innerHTML = this.name;
         let ratingsDiv = document.createElement("div");
@@ -119,6 +124,7 @@ class Result {
         reviewButton.innerHTML = "Review";
         let self = this;
         reviewButton.onclick = function () { self.updateForm(); }
+        divWrapper.appendChild(labelPara);
         divWrapper.appendChild(restaurantName);
         divWrapper.appendChild(restaurantPhoto);
         ratingsDiv.appendChild(veganismRating);

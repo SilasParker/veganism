@@ -17,7 +17,7 @@ function initMap() {
 }
 
 function displayResults(element) {
-    let list = document.getElementById("results-ordered-list");
+    let list = document.getElementById("results-unordered-list");
     let listElement = document.createElement("li");
     listElement.appendChild(element);
     list.appendChild(listElement);
@@ -156,7 +156,7 @@ function findAllClosestRestaurants(location, service) {
 
 async function generateNearbyRestaurants(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-        document.getElementById("results-ordered-list").innerHTML = "";
+        document.getElementById("results-unordered-list").innerHTML = "";
         scrollerComments = [];
         let labels = "ABCDEFGHIJKLMNOPQRST";
         for (let i = 0; i < results.length; i++) {
@@ -171,7 +171,7 @@ async function generateNearbyRestaurants(results, status) {
                 }
             }
 
-            let newElement = await result.setResults();
+            let newElement = await result.setResults(labels[i]);
             displayResults(newElement);
 
         }

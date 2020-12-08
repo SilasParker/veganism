@@ -14,7 +14,6 @@
         <h1>Veganism</h1>
     </header>
     <div id="search" class="search">
-
         <input id="search-bar" class="search-bar" type="text" placeholder="Type here...">
         <button type="button" id="search-submit" onclick=searchLocation()>Search</button><br>
         <button id="search-geolocation" class="search-geolocation" type="button" onclick=getGeolocation()>Use Current
@@ -44,7 +43,7 @@
     </div>
     <div id="tri-column" class="row">
         <div id="results-list" class="column column-left">
-            <ol id="results-ordered-list" class="results-ordered-list" type="A"></ol>
+            <ul id="results-unordered-list" class="results-unordered-list" type="A"></ul>
         </div>
         <div id="map" class="column column-middle"></div>
         <div id="write-review" class="column column-right">
@@ -90,13 +89,9 @@
                     <input type="radio" class="review-veganism" id="four-star" name="radVeganism">
                     <label for="four-star">4</label>
                 </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="five-star" name="radVeganism">
-                    <label for="five-star">5</label>
-                </div>
             </div>
             <div class="review-name">
-                <input type="text" id="author-input" placeholder="Name goes here...">
+                <input type="text" id="author-input" placeholder="Name goes here..." class="review-name-input">
             </div>
             <div class="review-comment">
                 <textarea cols=30 rows=5 maxlength=100 id="comment-input" placeholder="Comment goes here..."></textarea>

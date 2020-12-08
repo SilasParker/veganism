@@ -30,7 +30,11 @@
         font-weight: bolder;
         font-size: 20px;
         text-align: center;
-        color: #8EB44E
+        color: #8EB44E;
+    }
+
+    ul {
+        padding-inline-start: 0;
     }
 
     .column {
@@ -49,7 +53,8 @@
     }
 
     .column-left {
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
         margin-left: 5%;
         border: 6px solid #EC615F;
         border-right: none;
@@ -74,7 +79,6 @@
         
     }
     
-
     .radio-group {
         display: inline-block;
         text-align: center;
@@ -86,10 +90,17 @@
 
     .result {
         padding-bottom: 3%;
+        border-bottom: 6px solid #EC615F;
     }
 
-    .results-ordered-list li {
-        border: 5px solid #8d7134;
+    .result-label {
+        text-align: left;
+        padding-left: 10%;
+        font-size: 20px;
+    }
+
+    .results-unordered-list {
+        list-style-type: none;
     }
 
     .row {
@@ -130,6 +141,18 @@
         visibility: hidden;
     }
 
+    .review-name-input {
+        padding-bottom: 1%;
+        width: 50%;
+        font-size: 15px;
+        line-height: 25px;
+        box-sizing: border-box;
+        border: #304922;
+        border-radius: 4px;
+        background-color: #B9CD90;
+        color: #362822;
+    }
+
     #map { 
         height: 500px;
     }
@@ -140,7 +163,6 @@
 }
 
 /*
-Keep working on results borders
 format the review column
 make scroll bar mustard
 */
