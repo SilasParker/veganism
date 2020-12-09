@@ -22,8 +22,8 @@ class Comment {
         if (this.photo) {
             document.getElementById("scroller-photo-img").style.display = "block";
             document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
-            document.getElementById("scroller-photo-img").width = 200;
-            document.getElementById("scroller-photo-img").height = 150;
+            document.getElementById("scroller-photo-img").width = 100;
+            document.getElementById("scroller-photo-img").height = 75;
         }
 
     }

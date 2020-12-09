@@ -20,8 +20,8 @@
             Location</button>
         <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
-    <div class="scroller-review">
-        <div class="scroller-restaurant">
+    <div class="scroller-review comment-table">
+        <div class="scroller-restaurant comment-row">
             <h3 id="scroller-restaurant-name"></h3>
         </div>
         <div class="scroller-photo">
@@ -94,7 +94,8 @@
                 <input type="text" id="author-input" placeholder="Name goes here..." class="review-name-input">
             </div><br>
             <div class="review-comment">
-                <textarea cols=30 rows=5 maxlength=100 id="comment-input" placeholder="Comment goes here..." class="review-comment-input"></textarea>
+                <textarea cols=30 rows=5 maxlength=100 id="comment-input" placeholder="Comment goes here..."
+                    class="review-comment-input"></textarea>
             </div>
             <div class="review-submit">
                 <button type="submit" onclick=submitReview()>Submit</button>
