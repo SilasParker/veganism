@@ -145,7 +145,7 @@ class Result {
         document.getElementById("comment-input").value = "";
         let radioStar = document.getElementsByName("radStar");
         let radioVeganism = document.getElementsByName("radVeganism");
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 4; i++) {
             radioStar[i].checked = false;
             radioVeganism[i].checked = false;
         }

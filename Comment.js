@@ -14,8 +14,10 @@ class Comment {
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
         document.getElementById("scroller-rating-user").innerHTML = "Vegan Food Rating: " + this.rating + "*";
         document.getElementById("scroller-rating-veganism").innerHTML = "Vegan Scale: " + this.veganism + "*";
-        document.getElementById("scroller-comment-text").innerHTML = this.comment;
-        document.getElementById("scroller-author-text").innerHTML = this.name;
+        if (this.comment != "") {
+            document.getElementById("scroller-comment-text").innerHTML = "\"" + this.comment + "\"";
+        }
+        document.getElementById("scroller-author-text").innerHTML = "--" + this.name;
         let comment = this;
         document.getElementById("scroller-report-btn").style.visibility = "visible";
         document.getElementById("scroller-report-btn").onclick = async function () { await comment.reportComment(); };
