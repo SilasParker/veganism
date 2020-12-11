@@ -12,8 +12,8 @@ class Comment {
 
     setHTML() {
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
-        document.getElementById("scroller-rating-user").innerHTML = "Vegan Food Rating: " + this.rating + "*";
-        document.getElementById("scroller-rating-veganism").innerHTML = "Vegan Scale: " + this.veganism + "*";
+        document.getElementById("scroller-rating-user").innerHTML = "Rating: " + this.rating + "*";
+        document.getElementById("scroller-rating-veganism").innerHTML = "Veganism: " + this.veganism + "*";
         if (this.comment != "") {
             document.getElementById("scroller-comment-text").innerHTML = "\"" + this.comment + "\"";
         }
@@ -21,12 +21,6 @@ class Comment {
         let comment = this;
         document.getElementById("scroller-report-btn").style.visibility = "visible";
         document.getElementById("scroller-report-btn").onclick = async function () { await comment.reportComment(); };
-        if (this.photo) {
-            document.getElementById("scroller-photo-img").style.display = "block";
-            document.getElementById("scroller-photo-img").src = this.photo[0].getUrl();
-            document.getElementById("scroller-photo-img").width = 100;
-            document.getElementById("scroller-photo-img").height = 75;
-        }
 
     }
 
