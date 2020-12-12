@@ -11,7 +11,49 @@
 
 <body>
     <header>
-        <h1>Veganism</h1>
+        <h1 class="header-logo">Veganism</h1>
+        <span class="veganism-key">
+            <table>
+                <tr class="veganism-key-line">
+                    <td class="veganism-key-img">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                    </td>
+                    <td>
+                        No Vegan Options
+                    </td>
+                </tr>
+                <tr class="veganism-key-line">
+                    <td class="veganism-key-img">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                    </td>
+                    <td>
+                        Some Vegan Options
+                    </td>
+                </tr>
+                <tr class="veganism-key-line">
+                    <td>
+                        <img src="Stars/star.png" height="50%" width="50%">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                    </td>
+                    <td>
+                        Mostly Vegan Options
+                    </td>
+                </tr>
+                <tr class="veganism-key-line">
+                    <td>
+                        <img src="Stars/star.png" height="50%" width="50%">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                        <img src="Stars/star.png" height="50%" width="50%">
+                    </td>
+                    <td>
+                        All Vegan Options
+                    </td>
+                </tr>
+            </table>
+        </span>
     </header>
     <div id="search" class="search">
         <input id="search-bar" class="search-bar" type="text" placeholder="Type here...">
@@ -20,40 +62,7 @@
             Location</button>
         <p id="search-geolocation-error" class="search-geolocation-error"></p>
     </div>
-    <table class="scroller-review">
-        <tr class="scroller-restaurant">
-            <td class="scroller-empty-fill"></td>
-            <td class="scroller-title-fill">
-                <h3 id="scroller-restaurant-name"></h3>
-            </td>
-            <td class="scroller-empty-fill"></td>
-        </tr>
-        <tr>
-            <td class="scroller-rating scroller-cell-equal">
-                <p id="scroller-rating-user"></p>
-                <p id="scroller-rating-veganism"></p>
 
-            </td>
-            <td class="scroller-cell-equal">
-                <div class="scroller-comment">
-                    <p id="scroller-comment-text"></p>
-                </div>
-            </td>
-            <td class="scroller-cell-equal">
-
-                <div class="scroller-author">
-                    <p id="scroller-author-text"></p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="scroller-empty-fill"></td>
-            <td class="scroller-empty-fill"></td>
-            <td class="scroller-report">
-                <button type="button" id="scroller-report-btn">Report</button>
-            </td>
-        </tr>
-    </table>
     <div id="tri-column" class="row">
         <div id="results-list" class="column column-left">
             <ul id="results-unordered-list" class="results-unordered-list" type="A"></ul>
@@ -115,6 +124,43 @@
             </div>
         </div>
     </div>
+    <table class="scroller-review" id="scroller-review">
+        <tr class="scroller-restaurant">
+            <td>
+                <h3 id="scroller-restaurant-label">
+                    </p>
+            </td>
+            <td>
+                <h3 id="scroller-restaurant-name"></h3>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="scroller-rating">
+                <p id="scroller-rating-user"></p>
+                <p id="scroller-rating-veganism"></p>
+
+            </td>
+            <td>
+                <div class="scroller-comment">
+                    <p id="scroller-comment-text"></p>
+                </div>
+            </td>
+            <td>
+
+                <div class="scroller-author">
+                    <p id="scroller-author-text"></p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="scroller-report">
+                <button type="button" id="scroller-report-btn">Report</button>
+            </td>
+        </tr>
+    </table>
     <script src="Result.js"></script>
     <script src="Comment.js"></script>
     <script src="index.js"></script>

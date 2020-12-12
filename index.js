@@ -105,6 +105,7 @@ function getGeolocation() {
             };
             findAllClosestRestaurants(latLng, service);
             map.setCenter(latLng);
+            document.getElementById("search-geolocation-error").style.visibility = "hidden";
         }, () => {
             locationError(true)
         });
@@ -119,7 +120,7 @@ function locationError(browserGeoLocation) {
     } else {
         document.getElementById("search-geolocation-error").innerHTML = "Geolocation Error: Unsupported by browser, try Chrome";
     }
-    document.getElementById("search-geolocation-error").hidden = false;
+    document.getElementById("search-geolocation-error").style.visibility = "visible";
 }
 
 
@@ -164,7 +165,7 @@ async function generateNearbyRestaurants(results, status) {
             await result.setResults();
             let marker = new google.maps.Marker({ position: results[i].geometry.location, icon: 'Markers/marker' + labels[i] + '.png' });
             marker.setMap(map);
-            let comments = result.generateComments();
+            let comments = result.generateComments(labels[i]);
             if (comments) {
                 for (let j = 0; j < comments.length; j++) {
                     scrollerComments.push(comments[j]);

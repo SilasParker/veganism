@@ -26,7 +26,7 @@ class Result {
         }
     }
 
-    generateComments() {
+    generateComments(label) {
         let allComments = [];
         let reviews = this.results.ratings;
         if (reviews) {
@@ -37,7 +37,7 @@ class Result {
                     if (arr.indexOf(random) === -1) {
                         randomIndexes.push(random);
                         if (reviews[random]["reported"] === 0) {
-                            let commentToPush = new Comment(this.name, reviews[random]["star-rating"], reviews[random]["veganism-rating"], reviews[random]["comment"], reviews[random]["author"], reviews[random]["comment-id"], this.photo);
+                            let commentToPush = new Comment(this.name, reviews[random]["star-rating"], reviews[random]["veganism-rating"], reviews[random]["comment"], reviews[random]["author"], reviews[random]["comment-id"], label);
                             allComments.push(commentToPush);
 
                         }
@@ -45,7 +45,7 @@ class Result {
                 }
             } else {
                 for (let i = 0; i < reviews.length; i++) {
-                    let commentToPush = new Comment(this.name, reviews[i]["star-rating"], reviews[i]["veganism-rating"], reviews[i]["comment"], reviews[i]["author"], reviews[i]["comment-id"], this.photo);
+                    let commentToPush = new Comment(this.name, reviews[i]["star-rating"], reviews[i]["veganism-rating"], reviews[i]["comment"], reviews[i]["author"], reviews[i]["comment-id"], label);
                     allComments.push(commentToPush);
                 }
             }
