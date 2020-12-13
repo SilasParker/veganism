@@ -6,7 +6,7 @@ class Result {
         this.photo = place.photos;
         this.placeID = place.place_id;
         if (place.rating !== undefined) {
-            this.mapsRating = place.rating;
+            this.mapsRating = Math.round(place.rating * 2) / 2;
         } else {
             this.mapsRating = "No Reviews (yet)";
         }
@@ -89,7 +89,9 @@ class Result {
             for (let i = 0; i < this.results.ratings.length; i++) {
                 total += parseInt(this.results.ratings[i][ratingType]);
             }
-            return total / this.results.ratings.length;
+            let rawTotal = total / this.results.ratings.length;
+
+            return Math.round(rawTotal * 2) / 2;
         } else {
             return "No Reviews (yet)";
         }
@@ -105,11 +107,11 @@ class Result {
         restaurantName.innerHTML = this.name;
         let ratingsDiv = document.createElement("div");
         let veganismRating = document.createElement("p");
-        veganismRating.innerHTML = "Veganism: " + this.calculateRating("veganism-rating") + "*";
+        veganismRating = this.generateStars(veganismRating, this.calculateRating("veganism-rating"), "Veganism", "Stars/star");
         let userRating = document.createElement("p");
-        userRating.innerHTML = "User Rating: " + this.calculateRating("star-rating") + "*";
+        userRating = this.generateStars(userRating, this.calculateRating("star-rating"), "User Rating", "Stars/star");
         let mapRating = document.createElement("p");
-        mapRating.innerHTML = "GMaps Rating: " + this.mapsRating + "*";
+        mapRating = this.generateStars(mapRating, this.mapsRating, "GMaps", "Stars/star");
         let restaurantAddress = document.createElement("p");
         restaurantAddress.innerHTML = this.address;
         let restaurantPhoto = document.createElement("img");
@@ -118,6 +120,7 @@ class Result {
             restaurantPhoto.width = "200";
             restaurantPhoto.height = "150";
         } else {
+            //GENERATE PLACEHOLDER IMAGE
         }
         let reviewButton = document.createElement("button");
         reviewButton.type = "button";
@@ -134,6 +137,36 @@ class Result {
         divWrapper.appendChild(restaurantAddress);
         divWrapper.appendChild(reviewButton);
         return divWrapper;
+    }
+
+    generateStars(element, rating, system, path) {
+        if (typeof rating == "string") {
+            element.innerHTML = system + ": " + rating;
+
+        } else {
+            let halfStar = false;
+            if (rating % 1 != 0) {
+                halfStar = true;
+            }
+            rating = Math.floor(rating);
+
+            let span = document.createElement("span");
+            span.className = "result-star-span";
+            for (let i = 0; i < rating; i++) {
+                let starImg = document.createElement("img");
+                starImg.src = path + ".png";
+                span.appendChild(starImg);
+            }
+            if (halfStar) {
+                let halfStarImg = document.createElement("img");
+                halfStarImg.src = path + "Half.png";
+                span.appendChild(halfStarImg);
+            }
+            element.innerHTML = system + ": ";
+            element.appendChild(span);
+
+        }
+        return element;
     }
 
     updateForm() {

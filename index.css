@@ -1,5 +1,7 @@
 @media screen and (min-width: 800px) {
 
+    /*DOC-WIDE STYLE*/
+
     body {
         background: rgb(98,124,54);
         background: linear-gradient(180deg, rgba(98,124,54,1) 0%,rgba(142,180,78,1) 50%,rgba(255,200,81,100) 100%);
@@ -25,17 +27,6 @@
         color: solid #D9AF52;
         cursor: pointer;
     }
-    
-    header {
-        background-color: #304922;
-        padding: 1px;
-        font-weight: bolder;
-        font-size: 20px;
-        
-        color: #8EB44E;
-    }
-
-
 
     html {
         height: 100%;
@@ -45,13 +36,25 @@
         font-family: 'Alata';
     }
 
-    ul {
-        padding-inline-start: 0;
-    }
-
     td {
         width: auto;
     }
+    
+    /*HEADER*/
+
+    header {
+        background-color: #304922;
+        padding: 1px;
+        font-weight: bolder;
+        font-size: 20px;
+        color: #8EB44E;
+    }
+
+    .header-logo {
+        text-align: center;
+    }
+
+    /*TRICOLUMN*/
 
     .column {
         float: left;
@@ -67,11 +70,15 @@
         visibility: hidden;
         overflow-y: scroll;
         overflow-x: hidden;
+    }
 
+    /*LEFT COLUMN*/
+
+    ul {
+        padding-inline-start: 0;
     }
 
     .column-left {
-
         margin-left: 5%;
         border: 6px solid #EC615F;
         border-right: none;
@@ -85,20 +92,24 @@
         font-size: 15px;
     }
 
+    .result {
+        padding-bottom: 3%;
+        border-bottom: 6px solid #EC615F;
+    }
+
+    /*MIDDLE COLUMN*/
+
     .column-middle {
         width: 50%;
         border: 6px solid #EC615F;
     }
 
+    /*RIGHT COLUMN*/
+
     .column-right {
         border: 6px solid #EC615F;
         border-left: none;
         
-    }
-    
-    .header-logo {
-        
-        text-align: center;
     }
 
     .radio-group {
@@ -110,15 +121,16 @@
         display: block;
     }
 
-    .result {
-        padding-bottom: 3%;
-        border-bottom: 6px solid #EC615F;
-    }
+
 
     .result-label {
         text-align: left;
         padding-left: 10%;
         font-size: 20px;
+    }
+
+    .result-star-span {
+        display: inline-block;
     }
 
     .results-unordered-list {
@@ -149,6 +161,7 @@
         margin-left: 26%;
         background-color: rgba(236,97,95,0.75);
         font-size: 15px;
+        padding-bottom: 1%;
     }
 
 
@@ -223,9 +236,38 @@
 
     .veganism-key-line {
         
-        
+        height: auto;
         font-size: small;
         font-weight: normal;
+    }
+
+
+    .veganism-key-star {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        top: -5px;
+    }
+
+    .star1 {
+        right: 0px;
+    }
+
+    .star2 {
+        right: 20px;
+    }
+
+    .star3 {
+        right: 40px;
+    }
+
+    .star4 {
+        right: 60px;
+    }
+
+    .veganism-key-star-container {
+        position: relative;
+        height: 100%;
     }
 
     

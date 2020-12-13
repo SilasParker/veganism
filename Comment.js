@@ -14,8 +14,10 @@ class Comment {
         document.getElementById("scroller-review").style.visibility = "visible";
         document.getElementById("scroller-restaurant-label").innerHTML = this.label + ".";
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
-        document.getElementById("scroller-rating-user").innerHTML = "Rating: " + this.rating + "*";
-        document.getElementById("scroller-rating-veganism").innerHTML = "Veganism: " + this.veganism + "*";
+        let userRatingElement = document.getElementById("scroller-rating-user");
+        userRatingElement.parentNode.replaceChild(this.generateStars(userRatingElement, this.rating, "User Rating", "Stars/star"), userRatingElement);
+        let veganismElement = document.getElementById("scroller-rating-veganism");
+        veganismElement.parentNode.replaceChild(this.generateStars(veganismElement, this.veganism, "Veganism", "Stars/star"), veganismElement);
         if (this.comment != "") {
             document.getElementById("scroller-comment-text").innerHTML = "\"" + this.comment + "\"";
         } else {
@@ -26,6 +28,19 @@ class Comment {
         document.getElementById("scroller-report-btn").style.visibility = "visible";
         document.getElementById("scroller-report-btn").onclick = async function () { await comment.reportComment(); };
 
+    }
+
+    generateStars(element, rating, system, path) {
+        let span = document.createElement("span");
+        span.className = "result-star-span";
+        for (let i = 0; i < rating; i++) {
+            let starImg = document.createElement("img");
+            starImg.src = path + ".png";
+            span.appendChild(starImg);
+        }
+        element.innerHTML = system + ": ";
+        element.appendChild(span);
+        return element;
     }
 
     async reportComment() {
