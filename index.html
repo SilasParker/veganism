@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <head>
     <link href="index.css" rel="stylesheet" type="text/css">
@@ -15,7 +15,7 @@
         <span class="veganism-key">
             <table>
                 <tr class="veganism-key-line">
-                    <td class="veganism-key-img">
+                    <td>
                         <div class="veganism-key-star-container">
                             <img class="veganism-key-star star1" src="Stars/star.png" height="50%" width="50%">
                         </div>
@@ -44,7 +44,7 @@
                         </div>
                     </td>
                     <td>
-                        Mostly Vegan Options
+                        Equally Vegan/Non-Vegan
                     </td>
                 </tr>
                 <tr class="veganism-key-line">
@@ -57,7 +57,21 @@
                         </div>
                     </td>
                     <td>
-                        All Vegan Options
+                        Mostly Vegan Food
+                    </td>
+                </tr>
+                <tr class="veganism-key-line">
+                    <td>
+                        <div class="veganism-key-star-container">
+                            <img class="veganism-key-star star1" src="Stars/star.png" height="50%" width="50%">
+                            <img class="veganism-key-star star2" src="Stars/star.png" height="50%" width="50%">
+                            <img class="veganism-key-star star3" src="Stars/star.png" height="50%" width="50%">
+                            <img class="veganism-key-star star4" src="Stars/star.png" height="50%" width="50%">
+                            <img class="veganism-key-star star5" src="Stars/star.png" height="50%" width="50%">
+                        </div>
+                    </td>
+                    <td>
+                        All Vegan Food
                     </td>
                 </tr>
             </table>
@@ -78,62 +92,59 @@
         <div id="map" class="column column-middle"></div>
         <div id="write-review" class="column column-right">
             <h2></h2>
-            <div class="stars">
-                <h4>Vegan Food Quality</h4>
-                <div class="radio-group">
-                    <input type="radio" class="review-star" id="one-star" name="radStar">
-                    <label for="one-star">1</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-star" id="two-star" name="radStar">
-                    <label for="two-star">2</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-star" id="three-star" name="radStar">
-                    <label for="three-star">3</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-star" id="four-star" name="radStar">
-                    <label for="four-star">4</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-star" id="five-star" name="radStar">
-                    <label for="five-star">5</label>
-                </div>
+            <h4>Vegan Food Quality</h4>
+            <div class="veganism-rating-control">
+                
+                <input type="radio" id="five-star" name="radStar" value="5" class="review-star-input">
+                <label for="five-star" class="review-star review-star-5">5</label>
+
+
+                <input type="radio" id="four-star" name="radStar" value="4" class="review-star-input">
+                <label for="four-star" class="review-star review-star-4">4</label>
+
+                <input type="radio" id="three-star" name="radStar" value="3" class="review-star-input">
+                <label for="three-star" class="review-star review-star-3">3</label>
+
+                <input type="radio" id="two-star" name="radStar" value="2" class="review-star-input">
+                <label for="two-star" class="review-star review-star-2">2</label>
+
+                <input type="radio" id="one-star" name="radStar" value="1" class="review-star-input">
+                <label for="one-star" class="review-star review-star-1">1</label>
+
             </div>
             <h4>Veganism Scale</h4>
-            <div class="veganism">
-                <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="one-star" name="radVeganism">
-                    <label for="one-star">1</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="two-star" name="radVeganism">
-                    <label for="two-star">2</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="three-star" name="radVeganism">
-                    <label for="three-star">3</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" class="review-veganism" id="four-star" name="radVeganism">
-                    <label for="four-star">4</label>
-                </div>
+            <div>
+                <input type="radio" id="five-star" name="radVeganism" value="5" class="review-vegan-input">
+                <label for="five-star" class="review-vegan review-vegan-5">5</label>
+
+                <input type="radio" id="four-star" name="radVeganism" value="4" class="review-vegan-input">
+                <label for="four-star" class="review-vegan review-vegan-4">4</label>
+
+                <input type="radio" id="three-star" name="radVeganism" value="3" class="review-vegan-input">
+                <label for="three-star" class="review-vegan review-vegan-3">3</label>
+
+                <input type="radio" id="two-star" name="radVeganism" value="2" class="review-vegan-input">
+                <label for="two-star" class="review-vegan review-vegan-2">2</label>
+
+                <input type="radio" id="one-star" name="radVeganism" value="1" class="review-vegan-input">
+                <label for="one-star" class="review-vegan review-vegan-1">1</label>
+
+                <!-- STYLE THIS-->
             </div>
-            <div class="review-name">
+            <div>
                 <input type="text" id="author-input" placeholder="Name goes here..." class="review-name-input">
             </div><br>
-            <div class="review-comment">
+            <div>
                 <textarea cols=30 rows=5 maxlength=100 id="comment-input" placeholder="Comment goes here..."
                     class="review-comment-input"></textarea>
             </div>
-            <div class="review-submit">
+            <div>
                 <button type="submit" onclick=submitReview()>Submit</button>
             </div>
         </div>
     </div>
     <table class="scroller-review" id="scroller-review">
-        <tr class="scroller-restaurant">
+        <tr>
             <td>
                 <h3 id="scroller-restaurant-label">
                     </p>
@@ -144,17 +155,16 @@
             <td></td>
         </tr>
         <tr>
-            <td class="scroller-rating">
+            <td class="scroller-review-outer">
                 <p id="scroller-rating-user"></p>
                 <p id="scroller-rating-veganism"></p>
-
             </td>
-            <td>
-                <div class="scroller-comment">
+            <td class="scroller-review-middle">
+                <div>
                     <p id="scroller-comment-text"></p>
                 </div>
             </td>
-            <td>
+            <td class="scroller-review-outer">
 
                 <div class="scroller-author">
                     <p id="scroller-author-text"></p>

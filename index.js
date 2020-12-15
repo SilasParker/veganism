@@ -1,6 +1,7 @@
 var scrollerComments = [];
 var map;
 
+
 function initMap() {
     var mapProp = {
         center: new google.maps.LatLng(50.835160, -0.137110), zoom: 15,
@@ -24,8 +25,10 @@ function displayResults(element) {
 
 }
 
+
+
 async function submitReview() {
-    let stars = document.getElementsByClassName("review-star");
+    let stars = document.getElementsByClassName("review-star-input");
     let veganism = document.getElementsByClassName("review-veganism");
     stars = checkRating(stars);
     veganism = checkRating(veganism);
@@ -66,8 +69,8 @@ async function submitReview() {
                     alert("Your request failed: " + error);
                 });
         }
-
-
+    } else {
+        alert("Please fill required areas (marked by red asterix)");
     }
 }
 
@@ -139,7 +142,7 @@ function handleGeolocationPermission() {
 function checkRating(radioArray) {
     for (let i = 0; i < radioArray.length; i++) {
         if (radioArray[i].checked) {
-            return i + 1;
+            return 6-(i + 1);
         }
     }
     return null;

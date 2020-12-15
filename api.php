@@ -66,7 +66,7 @@ class VeganismAPI {
     private function handlePOST($author_name,$restaurant_id,$comment,$stars,$veganism) {
         $rid_valid = $this->checkRID($restaurant_id);
         $stars_valid = $this->checkRating($stars,5);
-        $veganism_valid = $this->checkRating($veganism,4);
+        $veganism_valid = $this->checkRating($veganism,5);
         $author_name = urldecode($author_name);
         $comment = urldecode($comment);
         $comment_valid = false;
