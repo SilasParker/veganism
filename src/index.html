@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html id="top">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles/responsive-desktop.css" rel="stylesheet" type="text/css">
+    <link href="styles/responsive-mobile.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'>
+    <title>Veganism</title>
+</head>
+
+<body>
+    <div class="css-grid-container">
+        <header class="cell cell-1">
+            <img src="images/misc/logo.png" class="header-logo">
+            <span class="veganism-key">
+                <table>
+                    <tr class="veganism-key-line">
+                        <td>
+                            <div class="veganism-key-star-container">
+                                <img class="veganism-key-star star1" src="images/stars/star.svg" height="50%" width="50%">
+                            </div>
+                        </td>
+                        <td>
+                            No Vegan Options
+                        </td>
+                    </tr>
+                    <tr class="veganism-key-line">
+                        <td class="veganism-key-img">
+                            <div class="veganism-key-star-container">
+                                <img class="veganism-key-star star1" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star2" src="images/stars/star.svg" height="50%" width="50%">
+                            </div>
+                        </td>
+                        <td>
+                            Some Vegan Options
+                        </td>
+                    </tr>
+                    <tr class="veganism-key-line">
+                        <td>
+                            <div class="veganism-key-star-container">
+                                <img class="veganism-key-star star1" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star2" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star3" src="images/stars/star.svg" height="50%" width="50%">
+                            </div>
+                        </td>
+                        <td>
+                            Equally Vegan/Non-Vegan
+                        </td>
+                    </tr>
+                    <tr class="veganism-key-line">
+                        <td>
+                            <div class="veganism-key-star-container">
+                                <img class="veganism-key-star star1" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star2" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star3" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star4" src="images/stars/star.svg" height="50%" width="50%">
+                            </div>
+                        </td>
+                        <td>
+                            Mostly Vegan Food
+                        </td>
+                    </tr>
+                    <tr class="veganism-key-line">
+                        <td>
+                            <div class="veganism-key-star-container">
+                                <img class="veganism-key-star star1" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star2" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star3" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star4" src="images/stars/star.svg" height="50%" width="50%">
+                                <img class="veganism-key-star star5" src="images/stars/star.svg" height="50%" width="50%">
+                            </div>
+                        </td>
+                        <td>
+                            All Vegan Food
+                        </td>
+                    </tr>
+                </table>
+            </span>
+        </header>
+
+        <div id="search" class="search cell cell-2">
+            <input id="search-bar" class="search-bar" type="text" placeholder="Type here...">
+            <button type="button" id="search-submit">Search</button>
+            <button id="search-geolocation" class="search-geolocation" type="button">Use
+                Current
+                Location</button>
+            <p id="search-geolocation-error" class="search-geolocation-error"></p>
+        </div>
+        <div id="results-list" class="cell cell-3 tri-column">
+            <ul id="results-unordered-list" class="results-unordered-list" type="A"></ul>
+        </div>
+        <div id="map" class="cell cell-4 tri-column"></div>
+        <div id="write-review" class="cell cell-5 tri-column">
+            <h2></h2>
+            <p class="review-message" id="review-message"></p>
+            <h4>Vegan Food Quality<span class="review-required">*</span></h4>
+            <div class="user-rating-control">
+
+                <input type="radio" id="five-star" name="radStar" value="5" class="review-star-input">
+                <label for="five-star" class="review-star review-star-5">5</label>
+
+
+                <input type="radio" id="four-star" name="radStar" value="4" class="review-star-input">
+                <label for="four-star" class="review-star review-star-4">4</label>
+
+                <input type="radio" id="three-star" name="radStar" value="3" class="review-star-input">
+                <label for="three-star" class="review-star review-star-3">3</label>
+
+                <input type="radio" id="two-star" name="radStar" value="2" class="review-star-input">
+                <label for="two-star" class="review-star review-star-2">2</label>
+
+                <input type="radio" id="one-star" name="radStar" value="1" class="review-star-input">
+                <label for="one-star" class="review-star review-star-1">1</label>
+
+            </div>
+            <h4>Veganism Scale<span class="review-required">*</span></h4>
+            <div class="veganism-rating-control">
+                <input type="radio" id="five-leaf" name="radVeganism" value="5" class="review-vegan-input">
+                <label for="five-leaf" class="review-vegan review-vegan-5">5</label>
+
+                <input type="radio" id="four-leaf" name="radVeganism" value="4" class="review-vegan-input">
+                <label for="four-leaf" class="review-vegan review-vegan-4">4</label>
+
+                <input type="radio" id="three-leaf" name="radVeganism" value="3" class="review-vegan-input">
+                <label for="three-leaf" class="review-vegan review-vegan-3">3</label>
+
+                <input type="radio" id="two-leaf" name="radVeganism" value="2" class="review-vegan-input">
+                <label for="two-leaf" class="review-vegan review-vegan-2">2</label>
+
+                <input type="radio" id="one-leaf" name="radVeganism" value="1" class="review-vegan-input">
+                <label for="one-leaf" class="review-vegan review-vegan-1">1</label>
+
+
+            </div>
+            <div>
+                <input type="text" id="author-input" placeholder="Name goes here..." class="review-name-input">
+                <span class="review-required">*</span>
+            </div><br>
+            <div>
+                <textarea cols=30 rows=5 maxlength=100 id="comment-input" placeholder="Comment goes here..."
+                    class="review-comment-input"></textarea>
+            </div>
+            <div>
+                <button type="submit" id="review-submit">Submit</button>
+            </div>
+        </div>
+        <table class="scroller-review cell cell-6" id="scroller-review">
+            <tr>
+                <td>
+                    <h3 id="scroller-restaurant-label">
+                        </p>
+                </td>
+                <td>
+                    <h3 id="scroller-restaurant-name"></h3>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="scroller-review-outer">
+                    <p id="scroller-rating-user"></p>
+                    <p id="scroller-rating-veganism"></p>
+                </td>
+                <td class="scroller-review-middle">
+                    <div>
+                        <p id="scroller-comment-text"></p>
+                    </div>
+                </td>
+                <td class="scroller-review-outer">
+    
+                    <div class="scroller-author">
+                        <p id="scroller-author-text"></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="scroller-report">
+                    <button type="button" id="scroller-report-btn">Report</button>
+                </td>
+            </tr>
+        </table>
+        <div class="cell-8">
+            <p id="report-message"></p>
+        </div>
+        <footer class="cell-7">
+            <a href="#top">Back to top</a>
+        </footer>
+    </div>
+    <script src="script/Result.js"></script>
+    <script src="script/Comment.js"></script>
+    <script src="script/index.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj3FWGTybAg-EjXysQgCkWOxii8_ERxBA&callback=initMap&libraries=places"
+        defer></script>
+
+</body>
+
+</html>

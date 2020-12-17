@@ -15,13 +15,13 @@ class Comment {
         document.getElementById("scroller-restaurant-label").innerHTML = this.label + ".";
         document.getElementById("scroller-restaurant-name").innerHTML = this.restaurantName;
         let userRatingElement = document.getElementById("scroller-rating-user");
-        userRatingElement.parentNode.replaceChild(this.generateStars(userRatingElement, this.rating, "User Rating", "Stars/star"), userRatingElement);
+        userRatingElement.parentNode.replaceChild(this.generateStars(userRatingElement, this.rating, "User Rating", "images/stars/star"), userRatingElement);
         let veganismElement = document.getElementById("scroller-rating-veganism");
-        veganismElement.parentNode.replaceChild(this.generateStars(veganismElement, this.veganism, "Veganism", "Stars/star"), veganismElement);
+        veganismElement.parentNode.replaceChild(this.generateStars(veganismElement, this.veganism, "Veganism", "images/stars/star"), veganismElement);
         if (this.comment != "") {
             document.getElementById("scroller-comment-text").innerHTML = "\"" + this.comment + "\"";
         } else {
-            document.getElementById("scroller-comment-text").innerHTML = "";
+            document.getElementById("scroller-comment-text").innerHTML = "<i>no comment</i>";
         }
         document.getElementById("scroller-author-text").innerHTML = "--" + this.name;
         let comment = this;
@@ -35,17 +35,19 @@ class Comment {
         span.className = "result-star-span";
         for (let i = 0; i < rating; i++) {
             let starImg = document.createElement("img");
-            starImg.src = path + ".png";
+            starImg.src = path + ".svg";
             span.appendChild(starImg);
         }
         element.innerHTML = system + ": ";
+        element.appendChild(document.createElement("br"));
         element.appendChild(span);
+        
         return element;
     }
 
     async reportComment() {
         let bodyData = "commentID=" + this.commentID;
-        await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php", {
+        await fetch("api/api.php", {
             method: 'PUT',
             body: bodyData,
             headers: {
@@ -54,10 +56,14 @@ class Comment {
         })
             .then(function (data) {
                 console.log("Request succeeded with response", data);
-                alert("Thanks for the report! Someone will look into this review ASAP");
+                document.getElementById("report-message").innerHTML = "Thanks for the report! Someone will look into this review ASAP";
+                document.getElementsByClassName("cell-8")[0].style.display = "block";
+                document.getElementById("report-message").scrollIntoView();
+                
             })
             .catch(function (error) {
-                alert("Your request failed: " + error);
+                document.getElementById("report-message").innerHTML = "Your request failed"+error;
+                document.getElementsByClassName("cell-8")[0].style.display = "block";
             });
     }
 

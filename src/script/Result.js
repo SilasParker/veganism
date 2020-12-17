@@ -76,7 +76,7 @@ class Result {
     }
 
     async getResultRatings() {
-        const response = await fetch("https://sp1178.brighton.domains/AdvWebApp/Veganism191120/api.php?restaurantID=" + this.placeID);
+        const response = await fetch("api/api.php?restaurantID=" + this.placeID);
 
         const json = await response.json();
 
@@ -107,21 +107,21 @@ class Result {
         restaurantName.innerHTML = this.name;
         let ratingsDiv = document.createElement("div");
         let veganismRating = document.createElement("p");
-        veganismRating = this.generateStars(veganismRating, this.calculateRating("veganism-rating"), "Veganism", "Stars/star");
+        veganismRating = this.generateStars(veganismRating, this.calculateRating("veganism-rating"), "Veganism", "images/stars/star");
         let userRating = document.createElement("p");
-        userRating = this.generateStars(userRating, this.calculateRating("star-rating"), "User Rating", "Stars/star");
+        userRating = this.generateStars(userRating, this.calculateRating("star-rating"), "User Rating", "images/stars/star");
         let mapRating = document.createElement("p");
-        mapRating = this.generateStars(mapRating, this.mapsRating, "GMaps", "Stars/star");
+        mapRating = this.generateStars(mapRating, this.mapsRating, "Google Maps", "images/stars/star");
         let restaurantAddress = document.createElement("p");
         restaurantAddress.innerHTML = this.address;
         let restaurantPhoto = document.createElement("img");
+        restaurantPhoto.className = "result-image";
         if (this.photo) {
             restaurantPhoto.src = this.photo[0].getUrl();
-            restaurantPhoto.width = "200";
-            restaurantPhoto.height = "150";
         } else {
-            //GENERATE PLACEHOLDER IMAGE
+            restaurantPhoto.src = "images/misc/no-image.png";
         }
+        
         let reviewButton = document.createElement("button");
         reviewButton.type = "button";
         reviewButton.innerHTML = "Review";
@@ -154,12 +154,12 @@ class Result {
             span.className = "result-star-span";
             for (let i = 0; i < rating; i++) {
                 let starImg = document.createElement("img");
-                starImg.src = path + ".png";
+                starImg.src = path + ".svg";
                 span.appendChild(starImg);
             }
             if (halfStar) {
                 let halfStarImg = document.createElement("img");
-                halfStarImg.src = path + "Half.png";
+                halfStarImg.src = path + "Half.svg";
                 span.appendChild(halfStarImg);
             }
             element.innerHTML = system + ": ";
@@ -170,7 +170,9 @@ class Result {
     }
 
     updateForm() {
-        document.getElementsByClassName("column-right")[0].style.visibility = 'visible'
+        document.getElementById("review-message").style.display = "none";
+        document.getElementById("review-message").style.visibility = "hidden";
+        document.getElementsByClassName("cell-5")[0].style.visibility = 'visible'
         let formDiv = document.getElementById("write-review");
         formDiv.getElementsByTagName("h2")[0].innerHTML = "Write Review for " + this.name;
         formDiv.getElementsByTagName("h2")[0].id = this.placeID;
